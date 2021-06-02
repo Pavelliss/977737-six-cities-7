@@ -1,3 +1,4 @@
+/* eslint-disable react/no-array-index-key */
 import React from 'react';
 import PlaceCard from '../place-card/place-card';
 import PropTypes from 'prop-types';
@@ -93,7 +94,7 @@ function MainPage(props) {
                 </ul>
               </form>
               <div className="cities__places-list places__list tabs__content">
-                {new Array(cardCount).fill().map((card, i) => <PlaceCard key={card += 1}/>)}
+                {new Array(cardCount).fill().map((card, i) => <PlaceCard key={card + i}/>)}
               </div>
             </section>
             <div className="cities__right-section">
