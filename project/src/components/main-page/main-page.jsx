@@ -8,26 +8,26 @@ function MainPage(props) {
 
   return (
     <div classNameName="page page--gray page--main">
-      <header classNameName="header">
-        <div classNameName="container">
-          <div classNameName="header__wrapper">
-            <div classNameName="header__left">
-              <a href="{#}" classNameName="header__logo-link header__logo-link--active">
-                <img classNameName="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
+      <header className="header">
+        <div className="container">
+          <div className="header__wrapper">
+            <div className="header__left">
+              <a className="header__logo-link header__logo-link--active" href="{#}">
+                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
               </a>
             </div>
-            <nav classNameName="header__nav">
-              <ul classNameName="header__nav-list">
-                <li classNameName="header__nav-item user">
-                  <a href="{#}" classNameName="header__nav-link header__nav-link--profile">
-                    <div classNameName="header__avatar-wrapper user__avatar-wrapper">
+            <nav className="header__nav">
+              <ul className="header__nav-list">
+                <li className="header__nav-item user">
+                  <a className="header__nav-link header__nav-link--profile" href="{#}">
+                    <div className="header__avatar-wrapper user__avatar-wrapper">
                     </div>
-                    <span classNameName="header__user-name user__name">Oliver.conner@gmail.com</span>
+                    <span className="header__user-name user__name">Oliver.conner@gmail.com</span>
                   </a>
                 </li>
-                <li classNameName="header__nav-item">
-                  <a href="{#}" classNameName="header__nav-link">
-                    <span classNameName="header__signout">Sign out</span>
+                <li className="header__nav-item">
+                  <a className="header__nav-link" href="{#}">
+                    <span className="header__signout">Sign out</span>
                   </a>
                 </li>
               </ul>
