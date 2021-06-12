@@ -1,21 +1,13 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import App from './components/app/app';
-import {nanoid} from 'nanoid';
 
-const Setting = {
-  CARD_COUNT: 5,
-};
-
-function getId () {
-  return nanoid();
-}
+import offers from '../src/mock/offers';
 
 ReactDOM.render(
   <React.StrictMode>
     <App
-      cardCount={Setting.CARD_COUNT}
-      id={getId}
+      offers={offers}
     />
   </React.StrictMode>,
   document.getElementById('root'));
