@@ -6,10 +6,10 @@ import PlaceCardList from '../place-card-list/place-card-list';
 import Header from '../header/header';
 
 function MainPage(props) {
-  const {offers, onCardClick} = props;
+  const {offers} = props;
 
   return (
-    <div classNameName="page page--gray page--main">
+    <div className="page page--gray page--main">
       <Header/>
       <main className="page__main page__main--index">
         <h1 className="visually-hidden">Cities</h1>
@@ -69,7 +69,7 @@ function MainPage(props) {
                   <li className="places__option" tabIndex="0">Top rated first</li>
                 </ul>
               </form>
-              <PlaceCardList offers={offers} onCardClick={onCardClick}/>
+              <PlaceCardList offers={offers}/>
             </section>
             <div className="cities__right-section">
               <section className="cities__map map"></section>
@@ -83,7 +83,6 @@ function MainPage(props) {
 
 MainPage.propTypes = {
   offers: PropTypes.arrayOf(offersProp),
-  onCardClick: PropTypes.func.isRequired,
 };
 
 export default MainPage;

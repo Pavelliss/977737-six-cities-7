@@ -1,11 +1,13 @@
-import React from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 
 import PlaceCard from '../place-card/place-card';
 import offersProp from '../offer-prop/offer.prop';
 
 function PlaceCardList(props) {
-  const {offers, onCardClick} = props;
+  const {offers} = props;
+  // eslint-disable-next-line no-unused-vars
+  const [activeCardId, setActiveCardId] = useState('');
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -13,7 +15,7 @@ function PlaceCardList(props) {
         <PlaceCard
           offer={offer}
           key={offer.id}
-          onCardClick={onCardClick}
+          onCardPointerEnter={(id) => setActiveCardId(id)}
         />
       ))}
     </div>
@@ -22,7 +24,6 @@ function PlaceCardList(props) {
 
 PlaceCardList.propTypes = {
   offers: PropTypes.arrayOf(offersProp),
-  onCardClick: PropTypes.func.isRequired,
 };
 
 export default PlaceCardList;

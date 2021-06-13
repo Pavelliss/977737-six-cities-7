@@ -6,7 +6,8 @@ import offerProp from '../offer-prop/offer.prop';
 import {AppRoute} from '../../const';
 
 function PlaceCard (props) {
-  const {offer, onCardClick} = props;
+  const {offer, onCardPointerEnter} = props;
+
   const {
     id,
     isPremium,
@@ -16,9 +17,10 @@ function PlaceCard (props) {
     title,
     type,
   } = offer;
+  const offerUrl = `${AppRoute.ROOM}/${id}`;
 
   return (
-    <article className="cities__place-card place-card" onClick={() => onCardClick(id)}>
+    <article className="cities__place-card place-card" onPointerEnter={() => onCardPointerEnter(id)}>
       {isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>
@@ -54,7 +56,7 @@ function PlaceCard (props) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={AppRoute.ROOM}>{title}</Link>
+          <Link to={offerUrl}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -64,7 +66,7 @@ function PlaceCard (props) {
 
 PlaceCard.propTypes = {
   offer: offerProp,
-  onCardClick: PropTypes.func.isRequired,
+  onCardPointerEnter: PropTypes.func.isRequired,
 };
 
 export default PlaceCard;

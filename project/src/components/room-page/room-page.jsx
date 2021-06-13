@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {useParams} from 'react-router-dom';
 
 import offersProp from '../offer-prop/offer.prop';
 
@@ -7,7 +8,8 @@ import Header from '../header/header';
 import ReviewsForm from '../reviews-form/reviews-form';
 
 function RoomPage (props) {
-  const {offers, id} = props;
+  const {offers} = props;
+  const {id} = useParams();
   const activeOffer = offers.find((offer) => offer['id'] === id);
   const {
     isPremium,
@@ -19,6 +21,7 @@ function RoomPage (props) {
     type,
     images,
   } = activeOffer;
+
   return (
     <div className="page">
       <Header/>
@@ -251,7 +254,6 @@ function RoomPage (props) {
 
 RoomPage.propTypes = {
   offers: PropTypes.arrayOf(offersProp),
-  id: PropTypes.string.isRequired,
 };
 
 export default RoomPage;

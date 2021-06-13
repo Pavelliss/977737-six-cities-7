@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 
@@ -13,7 +13,6 @@ import NotFoundPage from '../not-found-page/not-found-page';
 
 function App(props) {
   const {offers} = props;
-  const [activeCardId, setActiveCardId] = useState('');
 
   return (
     <BrowserRouter>
@@ -21,7 +20,6 @@ function App(props) {
         <Route exact path={AppRoute.MAIN}>
           <MainPage
             offers={offers}
-            onCardClick={(id) => setActiveCardId(id)}
           />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
@@ -32,10 +30,9 @@ function App(props) {
             offers={offers}
           />
         </Route>
-        <Route exact path={AppRoute.ROOM}>
+        <Route exact path={`${AppRoute.ROOM}/:id`}>
           <RoomPage
             offers={offers}
-            id={activeCardId}
           />
         </Route>
         <Route>
