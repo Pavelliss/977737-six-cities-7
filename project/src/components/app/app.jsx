@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 
 import {AppRoute} from '../../const';
+import offersProp from '../offer-prop/offer.prop';
 
 import MainPage from '../main-page/main-page';
 import LoginPage from '../login-page/login-page';
@@ -11,22 +12,28 @@ import RoomPage from '../room-page/room-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 
 function App(props) {
-  const {cardCount} = props;
+  const {offers} = props;
 
   return (
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <MainPage cardCount={cardCount}/>
+          <MainPage
+            offers={offers}
+          />
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <LoginPage/>
         </Route>
         <Route exact path={AppRoute.FAVORITES}>
-          <FavoritesPage/>
+          <FavoritesPage
+            offers={offers}
+          />
         </Route>
-        <Route exact path={AppRoute.ROOM}>
-          <RoomPage/>
+        <Route exact path={`${AppRoute.ROOM}/:id`}>
+          <RoomPage
+            offers={offers}
+          />
         </Route>
         <Route>
           <NotFoundPage/>
@@ -37,7 +44,7 @@ function App(props) {
 }
 
 App.propTypes = {
-  cardCount: PropTypes.number.isRequired,
+  offers: PropTypes.arrayOf(offersProp),
 };
 
 export default App;
