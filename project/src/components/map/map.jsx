@@ -31,7 +31,7 @@ function Map (props) {
           .addTo(map);
       });
     }
-  });
+  }, [map, pointCords]);
 
   return (
     <section className="cities__map map">
