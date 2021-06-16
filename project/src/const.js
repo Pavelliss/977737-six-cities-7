@@ -5,4 +5,11 @@ const AppRoute = {
   ROOM: '/offer',
 };
 
-export {AppRoute};
+const ZOOM = 12;
+const CITY = [52.38333, 4.9];
+
+export {
+  AppRoute,
+  ZOOM,
+  CITY
+};
