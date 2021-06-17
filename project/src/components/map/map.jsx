@@ -13,7 +13,7 @@ const icon = leaflet.icon({
 });
 
 function Map (props) {
-  const {offers} = props;
+  const {offers, className} = props;
   const pointCords = offers.map((offer) => {
     const latitude = offer['location']['latitude'];
     const longitude = offer['location']['longitude'];
@@ -34,7 +34,7 @@ function Map (props) {
   }, [map, pointCords]);
 
   return (
-    <section className="cities__map map">
+    <section className={className}>
       <div
         id='map'
         ref={mapRef}
@@ -46,6 +46,7 @@ function Map (props) {
 
 Map.propTypes = {
   offers: PropTypes.arrayOf(offersProp),
+  className: PropTypes.string,
 };
 
 export default Map;

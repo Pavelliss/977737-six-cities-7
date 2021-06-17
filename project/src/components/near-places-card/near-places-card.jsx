@@ -1,34 +1,27 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
+import PropTypes from 'prop-types';
 
-import offerProp from '../offer-prop/offer.prop';
+import offersProp from '../offer-prop/offer.prop';
 import {AppRoute} from '../../const';
 
-function PlaceCard (props) {
-  const {offer, onCardPointerEnter} = props;
-
+function NearPlacesCard(props) {
+  const {nearOffer} = props;
   const {
     id,
-    isPremium,
-    isFavorite,
     previewImage,
     price,
     title,
     type,
-  } = offer;
-  const offerUrl = `${AppRoute.ROOM}/${id}`;
+    isFavorite,
+  } = nearOffer;
+  const nearOfferUrl = `${AppRoute.ROOM}/${id}`;
 
   return (
-    <article className="cities__place-card place-card" onPointerEnter={() => onCardPointerEnter(id)}>
-      {isPremium ?
-        <div className="place-card__mark">
-          <span>Premium</span>
-        </div>
-        : ''}
-      <div className="cities__image-wrapper place-card__image-wrapper">
-        <Link to={offerUrl}>
-          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place"/>
+    <article className="near-places__card place-card">
+      <div className="near-places__image-wrapper place-card__image-wrapper">
+        <Link to={nearOfferUrl}>
+          <img className="place-card__image" src={previewImage} width="260" height="200" alt="Place" />
         </Link>
       </div>
       <div className="place-card__info">
@@ -38,13 +31,13 @@ function PlaceCard (props) {
             <span className="place-card__price-text">&#47;&nbsp;night</span>
           </div>
           <button className={`place-card__bookmark-button button
-            ${isFavorite && 'place-card__bookmark-button--active'}`}
+          ${isFavorite && 'place-card__bookmark-button--active'}`}
           type="button"
           >
             <svg className="place-card__bookmark-icon" width="18" height="19">
-              <use xlinkHref="#icon-bookmark"/>
+              <use xlinkHref="#icon-bookmark"></use>
             </svg>
-            <span className="visually-hidden">To bookmarks</span>
+            <span className="visually-hidden">In bookmarks</span>
           </button>
         </div>
         <div className="place-card__rating rating">
@@ -54,7 +47,7 @@ function PlaceCard (props) {
           </div>
         </div>
         <h2 className="place-card__name">
-          <Link to={offerUrl}>{title}</Link>
+          <Link to={nearOfferUrl}>{title}</Link>
         </h2>
         <p className="place-card__type">{type}</p>
       </div>
@@ -62,9 +55,8 @@ function PlaceCard (props) {
   );
 }
 
-PlaceCard.propTypes = {
-  offer: offerProp,
-  onCardPointerEnter: PropTypes.func.isRequired,
+NearPlacesCard.propTypes = {
+  nearOffer: PropTypes.shape(offersProp),
 };
 
-export default PlaceCard;
+export default NearPlacesCard;
