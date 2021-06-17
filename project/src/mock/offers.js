@@ -1,5 +1,3 @@
-import {nanoid} from 'nanoid';
-
 const offers = [
   {
     'bedrooms': 3,
@@ -15,11 +13,11 @@ const offers = [
     'goods': ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     'host': {
       'avatarUrl': 'img/amsterdam.jpg',
-      'id': nanoid(),
+      'id': '1',
       'isPro': true,
       'name': 'Angelina',
     },
-    'id': nanoid(),
+    'id': '2',
     'images': ['img/studio-01.jpg', 'img/room.jpg'],
     'isFavorite': false,
     'isPremium': true,
@@ -49,11 +47,11 @@ const offers = [
     'goods': ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     'host': {
       'avatarUrl': 'img/amsterdam.jpg',
-      'id': nanoid(),
+      'id': '3',
       'isPro': true,
       'name': 'Angelina',
     },
-    'id': nanoid(),
+    'id': '4',
     'images': ['img/apartment-01.jpg'],
     'isFavorite': false,
     'isPremium': false,
@@ -83,11 +81,11 @@ const offers = [
     'goods': ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     'host': {
       'avatarUrl': 'img/amsterdam.jpg',
-      'id': nanoid(),
+      'id': '5',
       'isPro': true,
       'name': 'Angelina',
     },
-    'id': nanoid(),
+    'id': '6',
     'images': ['img/1.png', 'img/2.png'],
     'isFavorite': true,
     'isPremium': false,
@@ -117,11 +115,11 @@ const offers = [
     'goods': ['Heating', 'Kitchen', 'Cable TV', 'Washing machine', 'Coffee machine', 'Dishwasher'],
     'host': {
       'avatarUrl': 'img/amsterdam.jpg',
-      'id': nanoid(),
+      'id': '7',
       'isPro': true,
       'name': 'Angelina',
     },
-    'id': nanoid(),
+    'id': '8',
     'images': ['img/1.png', 'img/2.png'],
     'isFavorite': false,
     'isPremium': false,

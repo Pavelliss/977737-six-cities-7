@@ -73,7 +73,7 @@ function MainPage(props) {
               <PlaceCardList offers={offers}/>
             </section>
             <div className="cities__right-section">
-              <Map offers={offers}/>
+              <Map offers={offers} className={'cities__map map'}/>
             </div>
           </div>
         </div>

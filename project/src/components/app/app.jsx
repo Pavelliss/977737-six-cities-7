@@ -4,6 +4,7 @@ import {Switch, Route, BrowserRouter} from 'react-router-dom';
 
 import {AppRoute} from '../../const';
 import offersProp from '../offer-prop/offer.prop';
+import commentsProp from '../comments-prop/comments.prop';
 
 import MainPage from '../main-page/main-page';
 import LoginPage from '../login-page/login-page';
@@ -12,7 +13,11 @@ import RoomPage from '../room-page/room-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 
 function App(props) {
-  const {offers} = props;
+  const {
+    offers,
+    comments,
+    nearOffers,
+  } = props;
 
   return (
     <BrowserRouter>
@@ -33,6 +38,8 @@ function App(props) {
         <Route exact path={`${AppRoute.ROOM}/:id`}>
           <RoomPage
             offers={offers}
+            nearOffers={nearOffers}
+            comments={comments}
           />
         </Route>
         <Route>
@@ -45,6 +52,8 @@ function App(props) {
 
 App.propTypes = {
   offers: PropTypes.arrayOf(offersProp),
+  nearOffers: PropTypes.arrayOf(offersProp),
+  comments: PropTypes.arrayOf(commentsProp),
 };
 
 export default App;
