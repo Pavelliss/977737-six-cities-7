@@ -23,9 +23,7 @@ function App(props) {
     <BrowserRouter>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
-          <MainPage
-            offers={offers}
-          />
+          <MainPage/>
         </Route>
         <Route exact path={AppRoute.LOGIN}>
           <LoginPage/>

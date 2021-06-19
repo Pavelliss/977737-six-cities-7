@@ -3,14 +3,16 @@ import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
 import offersProp from '../offer-prop/offer.prop';
+import {ActionCreator} from '../../store/action';
 
 import PlaceCardList from '../place-card-list/place-card-list';
 import Header from '../header/header';
 import Map from '../map/map';
-import LocationList from '../location-list/location-list';
+import LocationList from '../locations/location-list/location-list';
 
 function MainPage(props) {
-  const {offers} = props;
+  const {offers, city, onLocationChange} = props;
+  const placeCount = offers.length;
 
   return (
     <div className="page page--gray page--main">
@@ -19,14 +21,14 @@ function MainPage(props) {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationList offers={offers}/>
+            <LocationList onLocationChange={onLocationChange}/>
           </section>
         </div>
         <div className="cities">
           <div className="cities__places-container container">
             <section className="cities__places places">
               <h2 className="visually-hidden">Places</h2>
-              <b className="places__found">312 places to stay in Amsterdam</b>
+              <b className="places__found">{placeCount} places to stay in {city}</b>
               <form className="places__sorting" action="#" method="get">
                 <span className="places__sorting-caption">Sort by</span>
                 <span className="places__sorting-type" tabIndex="0">
@@ -54,8 +56,23 @@ function MainPage(props) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  offers: state.offers,
+  city: state.city,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onLocationChange(city) {
+    dispatch(ActionCreator.changeCity(city));
+    dispatch(ActionCreator.fillOffers());
+  },
+});
+
 MainPage.propTypes = {
   offers: PropTypes.arrayOf(offersProp),
+  onLocationChange: PropTypes.func.isRequired,
+  city: PropTypes.string.isRequired,
 };
 
-export default MainPage;
+export {MainPage};
+export default connect(mapStateToProps, mapDispatchToProps)(MainPage);

@@ -1,13 +1,15 @@
 import {ActionType} from './action';
 import offers from '../mock/offers';
 
+const DEFALT_CITY = 'Paris';
+
 function getFiltredOffers (city) {
   return offers.filter((offer) => city === offer['city']['name']);
 }
 
 const initialState = {
-  city: '',
-  offers: [],
+  city: DEFALT_CITY,
+  offers: getFiltredOffers(DEFALT_CITY),
 };
 
 const reducer = (state = initialState, action) => {
@@ -18,7 +20,10 @@ const reducer = (state = initialState, action) => {
         city: action.payload,
       };
     case ActionType.FILL_OFFERS:
-      return {};
+      return {
+        ...state,
+        offers: getFiltredOffers(state.city),
+      };
     default:
       return state;
   }
