@@ -2,23 +2,12 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import offersProp from '../offer-prop/offer.prop';
+import {groupOffersPerCity} from '../../helper/helper';
 
 import FavoritesItem from '../favorites-item/favorites-item';
 
 function FavoritesList(props) {
   const {offers} = props;
-
-  const groupOffersPerCity = (cities, offer) => {
-    const cityName = offer['city']['name'];
-
-    if (Array.isArray(cities[cityName])) {
-      cities[cityName].push(offer);
-    } else {
-      cities[cityName] = [offer];
-    }
-
-    return cities;
-  };
 
   const filtredOffers = offers
     .filter((offer) => offer['isFavorite'])
