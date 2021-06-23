@@ -1,14 +1,9 @@
 import {ActionType} from './action';
-import {adaptOfferToClient} from '../services/adapter';
 
 const DEFALT_CITY = 'Paris';
 
 function getFiltredOffers (city, offers) {
   return offers.filter((offer) => city === offer['city']['name']);
-}
-
-function adaptOffersToClient (offers) {
-  return offers.map((offer) => adaptOfferToClient(offer));
 }
 
 const initialState = {
@@ -33,8 +28,8 @@ const reducer = (state = initialState, action) => {
     case ActionType.LOAD_OFFERS:
       return {
         ...state,
-        offers: adaptOffersToClient(action.payload),
-        filtredOffers: getFiltredOffers(state.city ,state.offers),
+        offers: action.payload,
+        filtredOffers: getFiltredOffers(state.city ,action.payload),
         isDataLoaded: true,
       };
     default:
