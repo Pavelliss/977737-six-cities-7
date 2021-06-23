@@ -57,7 +57,7 @@ function MainPage(props) {
 }
 
 const mapStateToProps = (state) => ({
-  offers: state.offers,
+  offers: state.filtredOffers,
   city: state.city,
 });
 

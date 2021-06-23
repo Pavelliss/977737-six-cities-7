@@ -1,6 +1,7 @@
 const ActionType = {
   CHANGE_CITY: '/changeCity',
   FILL_OFFERS: '/fillOffers',
+  LOAD_OFFERS: 'data/loadOffers',
 };
 
 const ActionCreator = {
@@ -10,6 +11,10 @@ const ActionCreator = {
   }),
   fillOffers: () => ({
     type: ActionType.FILL_OFFERS,
+  }),
+  loadOffers: (offers) => ({
+    type: ActionType.LOAD_OFFERS,
+    payload: offers,
   }),
 };
 

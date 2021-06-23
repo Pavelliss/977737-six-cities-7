@@ -3,7 +3,7 @@ import {Link} from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 import offersProp from '../offer-prop/offer.prop';
-import {AppRoute} from '../../const';
+import {APIRoute} from '../../const';
 
 function NearPlacesCard(props) {
   const {nearOffer} = props;
@@ -15,7 +15,7 @@ function NearPlacesCard(props) {
     type,
     isFavorite,
   } = nearOffer;
-  const nearOfferUrl = `${AppRoute.ROOM}/${id}`;
+  const nearOfferUrl = `${APIRoute.ROOM}/${id}`;
 
   return (
     <article className="near-places__card place-card">
