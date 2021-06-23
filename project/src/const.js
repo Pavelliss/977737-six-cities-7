@@ -1,11 +1,17 @@
 const APIRoute = {
-  MAIN: '/',
   LOGIN: '/login',
   LOGOUT: '/logout',
   FAVORITES: '/favorites',
   COMMENTS: '/comments',
-  ROOM: '/offer',
   OFFERS: '/hotels',
+};
+
+const AppRoute = {
+  MAIN: '/',
+  FAVORITES: '/favorites',
+  COMMENTS: '/comments',
+  ROOM: '/offer',
+  LOGIN: '/login',
 };
 
 const ZOOM = 12;
@@ -14,6 +20,7 @@ const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseld
 
 export {
   APIRoute,
+  AppRoute,
   ZOOM,
   CITY,
   CITIES

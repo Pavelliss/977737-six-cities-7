@@ -18,7 +18,7 @@ function RoomPage (props) {
   } = props;
 
   const {id} = useParams();
-  const activeOffer = offers.find((offer) => offer['id'] === id);
+  const activeOffer = offers.find((offer) => offer['id'] === +id);
   const {
     isPremium,
     isFavorite,

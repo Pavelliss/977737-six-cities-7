@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Link} from 'react-router-dom';
 
 import offerProp from '../offer-prop/offer.prop';
-import {APIRoute} from '../../const';
+import {AppRoute} from '../../const';
 
 function PlaceCard (props) {
   const {offer, onCardPointerEnter} = props;
@@ -17,7 +17,7 @@ function PlaceCard (props) {
     title,
     type,
   } = offer;
-  const offerUrl = `${APIRoute.ROOM}/${id}`;
+  const offerUrl = `${AppRoute.ROOM}/${id}`;
 
   return (
     <article className="cities__place-card place-card" onPointerEnter={() => onCardPointerEnter(id)}>

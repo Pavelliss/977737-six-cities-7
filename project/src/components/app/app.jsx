@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {APIRoute} from '../../const';
+import {AppRoute} from '../../const';
 import offersProp from '../offer-prop/offer.prop';
 import commentsProp from '../comments-prop/comments.prop';
 
@@ -29,18 +29,18 @@ function App(props) {
   return (
     <BrowserRouter>
       <Switch>
-        <Route exact path={APIRoute.MAIN}>
+        <Route exact path={AppRoute.MAIN}>
           <MainPage/>
         </Route>
-        <Route exact path={APIRoute.LOGIN}>
+        <Route exact path={AppRoute.LOGIN}>
           <LoginPage/>
         </Route>
-        <Route exact path={APIRoute.FAVORITES}>
+        <Route exact path={AppRoute.FAVORITES}>
           <FavoritesPage
             offers={offers}
           />
         </Route>
-        <Route exact path={`${APIRoute.ROOM}/:id`}>
+        <Route exact path={`${AppRoute.ROOM}/:id`}>
           <RoomPage
             offers={offers}
             nearOffers={nearOffers}
@@ -57,6 +57,7 @@ function App(props) {
 
 const mapStateToProps = (state) => ({
   isDataLoaded: state.isDataLoaded,
+  offers: state.offers,
 });
 
 App.propTypes = {
