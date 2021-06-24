@@ -25,6 +25,12 @@ function Map (props) {
 
   useEffect(() => {
     if (map) {
+      map.eachLayer((layer) => {
+        if (layer.toGeoJSON && layer.toGeoJSON().type === 'Feature') {
+          map.removeLayer(layer);
+        }
+      });
+
       pointCords.forEach((point) => {
         leaflet
           .marker(point, {icon})

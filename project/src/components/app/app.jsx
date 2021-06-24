@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {connect} from 'react-redux';
 
 import {AppRoute} from '../../const';
 import offersProp from '../offer-prop/offer.prop';
@@ -11,13 +12,19 @@ import LoginPage from '../login-page/login-page';
 import FavoritesPage from '../favorites-page/favorites-page';
 import RoomPage from '../room-page/room-page';
 import NotFoundPage from '../not-found-page/not-found-page';
+import LoadingScreen from '../loading-screen/loading-screen';
 
 function App(props) {
   const {
     offers,
     comments,
     nearOffers,
+    isDataLoaded,
   } = props;
+
+  if (!isDataLoaded) {
+    return <LoadingScreen/>;
+  }
 
   return (
     <BrowserRouter>
@@ -48,10 +55,17 @@ function App(props) {
   );
 }
 
+const mapStateToProps = (state) => ({
+  isDataLoaded: state.isDataLoaded,
+  offers: state.offers,
+});
+
 App.propTypes = {
   offers: PropTypes.arrayOf(offersProp),
   nearOffers: PropTypes.arrayOf(offersProp),
   comments: PropTypes.arrayOf(commentsProp),
+  isDataLoaded: PropTypes.bool.isRequired,
 };
 
-export default App;
+export {App};
+export default connect(mapStateToProps, null)(App);

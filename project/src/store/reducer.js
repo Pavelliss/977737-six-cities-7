@@ -1,15 +1,16 @@
 import {ActionType} from './action';
-import offers from '../mock/offers';
 
 const DEFALT_CITY = 'Paris';
 
-function getFiltredOffers (city) {
+function getFiltredOffers (city, offers) {
   return offers.filter((offer) => city === offer['city']['name']);
 }
 
 const initialState = {
   city: DEFALT_CITY,
-  offers: getFiltredOffers(DEFALT_CITY),
+  offers: [],
+  filtredOffers: [],
+  isDataLoaded: false,
 };
 
 const reducer = (state = initialState, action) => {
@@ -22,7 +23,14 @@ const reducer = (state = initialState, action) => {
     case ActionType.FILL_OFFERS:
       return {
         ...state,
-        offers: getFiltredOffers(state.city),
+        filtredOffers: getFiltredOffers(state.city, state.offers),
+      };
+    case ActionType.LOAD_OFFERS:
+      return {
+        ...state,
+        offers: action.payload,
+        filtredOffers: getFiltredOffers(state.city ,action.payload),
+        isDataLoaded: true,
       };
     default:
       return state;
