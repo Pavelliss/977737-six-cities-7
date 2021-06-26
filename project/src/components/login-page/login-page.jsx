@@ -1,45 +1,68 @@
-import React from 'react';
+import React, {useRef} from 'react';
+import PropTypes from 'prop-types';
+import {connect} from 'react-redux';
 
-function LoginPage () {
+import {login} from '../../store/api-actions';
+import {ActionCreator} from '../../store/action';
+import Header from '../header/header';
+
+function LoginPage (props) {
+  const {
+    onSubmit,
+  } = props;
+
+  const inputEmailRef = useRef();
+  const inputPasswordRef = useRef();
+
+  const onFormSubmit = (evt) => {
+    evt.preventDefault();
+
+    onSubmit({
+      email: inputEmailRef.current.value,
+      password: inputPasswordRef.current.value,
+    });
+  };
+
   return (
     <div className="page page--gray page--login">
-      <header className="header">
-        <div className="container">
-          <div className="header__wrapper">
-            <div className="header__left">
-              <a className="header__logo-link" href="main.html">
-                <img className="header__logo" src="img/logo.svg" alt="6 cities logo" width="81" height="41"/>
-              </a>
-            </div>
-            <nav className="header__nav">
-              <ul className="header__nav-list">
-                <li className="header__nav-item user">
-                  <a className="header__nav-link header__nav-link--profile" href="{#}">
-                    <div className="header__avatar-wrapper user__avatar-wrapper">
-                    </div>
-                    <span className="header__login">Sign in</span>
-                  </a>
-                </li>
-              </ul>
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header/>
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">
           <section className="login">
             <h1 className="login__title">Sign in</h1>
-            <form className="login__form form" action="#" method="post">
+            <form
+              className="login__form form"
+              action="#"
+              method="post"
+              onSubmit={onFormSubmit}
+            >
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">E-mail</label>
-                <input className="login__input form__input" type="email" name="email" placeholder="Email" required="" />
+                <input
+                  className="login__input form__input"
+                  type="email"
+                  name="email"
+                  placeholder="Email"
+                  required=""
+                  ref={inputEmailRef}
+                />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
                 <label className="visually-hidden">Password</label>
-                <input className="login__input form__input" type="password" name="password" placeholder="Password" required="" />
+                <input
+                  className="login__input form__input"
+                  type="password" name="password"
+                  placeholder="Password"
+                  required=""
+                  ref={inputPasswordRef}
+                />
               </div>
-              <button className="login__submit form__submit button" type="submit">Sign in</button>
+              <button
+                className="login__submit form__submit button"
+                type="submit"
+              >Sign in
+              </button>
             </form>
           </section>
           <section className="locations locations--login locations--current">
@@ -55,4 +78,20 @@ function LoginPage () {
   );
 }
 
-export default LoginPage;
+LoginPage.propTypes = {
+  onSubmit: PropTypes.func.isRequired,
+};
+
+const mapStateToProps = (store) => ({
+  authorizationStatus: store.authorizationStatus,
+});
+
+const mapDispatchToProps = (dispatch) => ({
+  onSubmit(authData) {
+    dispatch(login(authData));
+    dispatch(ActionCreator.addUserEmail(authData['email']));
+  },
+});
+
+export {LoginPage};
+export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
