@@ -1,4 +1,4 @@
-import React, {useRef} from 'react';
+import React, {useEffect, useRef} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
@@ -22,6 +22,10 @@ function LoginPage (props) {
       password: inputPasswordRef.current.value,
     });
   };
+
+  useEffect(() => {
+    inputEmailRef.current.focus();
+  }, []);
 
   return (
     <div className="page page--gray page--login">
