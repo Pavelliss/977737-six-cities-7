@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import React, {useEffect, useRef, useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
@@ -12,14 +12,24 @@ function LoginPage (props) {
   } = props;
 
   const inputEmailRef = useRef();
-  const inputPasswordRef = useRef();
+
+  const [userEmail, setUserEmail] = useState('');
+  const [userPassword, setUserPassword] = useState('');
+
+  const onInputEmailChange = (evt) => {
+    setUserEmail(evt.target.value);
+  };
+
+  const onInputPasswordChange = (evt) => {
+    setUserPassword(evt.target.value);
+  };
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
 
     onSubmit({
-      email: inputEmailRef.current.value,
-      password: inputPasswordRef.current.value,
+      email: userEmail,
+      password: userPassword,
     });
   };
 
@@ -49,6 +59,7 @@ function LoginPage (props) {
                   name="email"
                   placeholder="Email"
                   required=""
+                  onChange={onInputEmailChange}
                   ref={inputEmailRef}
                 />
               </div>
@@ -59,7 +70,7 @@ function LoginPage (props) {
                   type="password" name="password"
                   placeholder="Password"
                   required=""
-                  ref={inputPasswordRef}
+                  onChange={onInputPasswordChange}
                 />
               </div>
               <button
