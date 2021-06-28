@@ -1,4 +1,4 @@
-import React, {useEffect, useRef, useState} from 'react';
+import React, {useState} from 'react';
 import PropTypes from 'prop-types';
 import {connect} from 'react-redux';
 
@@ -11,31 +11,25 @@ function LoginPage (props) {
     onSubmit,
   } = props;
 
-  const inputEmailRef = useRef();
+  const [userData, setUserData] = useState({
+    email: '',
+    password: '',
+  });
 
-  const [userEmail, setUserEmail] = useState('');
-  const [userPassword, setUserPassword] = useState('');
-
-  const onInputEmailChange = (evt) => {
-    setUserEmail(evt.target.value);
-  };
-
-  const onInputPasswordChange = (evt) => {
-    setUserPassword(evt.target.value);
+  const onInputChange = (evt) => {
+    setUserData({
+      ...userData,
+      [evt.target.name]: evt.target.value,
+    });
   };
 
   const onFormSubmit = (evt) => {
     evt.preventDefault();
 
     onSubmit({
-      email: userEmail,
-      password: userPassword,
+      ...userData,
     });
   };
-
-  useEffect(() => {
-    inputEmailRef.current.focus();
-  }, []);
 
   return (
     <div className="page page--gray page--login">
@@ -59,8 +53,8 @@ function LoginPage (props) {
                   name="email"
                   placeholder="Email"
                   required=""
-                  onChange={onInputEmailChange}
-                  ref={inputEmailRef}
+                  onChange={onInputChange}
+                  autoFocus
                 />
               </div>
               <div className="login__input-wrapper form__input-wrapper">
@@ -70,7 +64,7 @@ function LoginPage (props) {
                   type="password" name="password"
                   placeholder="Password"
                   required=""
-                  onChange={onInputPasswordChange}
+                  onChange={onInputChange}
                 />
               </div>
               <button
