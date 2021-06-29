@@ -10,4 +10,9 @@ const groupOffersPerCity = (cities, offer) => {
   return cities;
 };
 
-export {groupOffersPerCity};
+const checkStatus = (status, activeStatus) => status === activeStatus;
+
+export {
+  groupOffersPerCity,
+  checkStatus
+};

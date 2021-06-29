@@ -1,11 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Switch, Route, BrowserRouter} from 'react-router-dom';
+import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 
-import {AppRoute} from '../../const';
+import {AppRoute, AuthorizationStatus} from '../../const';
+import {checkStatus} from '../../helper/helper';
 import offersProp from '../offer-prop/offer.prop';
 import commentsProp from '../comments-prop/comments.prop';
+import browserHistory from '../../browser-history';
 
 import MainPage from '../main-page/main-page';
 import LoginPage from '../login-page/login-page';
@@ -13,6 +15,7 @@ import FavoritesPage from '../favorites-page/favorites-page';
 import RoomPage from '../room-page/room-page';
 import NotFoundPage from '../not-found-page/not-found-page';
 import LoadingScreen from '../loading-screen/loading-screen';
+import PrivateRoute from '../private-route/private-route';
 
 function App(props) {
   const {
@@ -20,14 +23,15 @@ function App(props) {
     comments,
     nearOffers,
     isDataLoaded,
+    authorizationStatus,
   } = props;
 
-  if (!isDataLoaded) {
+  if (checkStatus(AuthorizationStatus.UNKNOWN ,authorizationStatus) || !isDataLoaded) {
     return <LoadingScreen/>;
   }
 
   return (
-    <BrowserRouter>
+    <BrowserRouter history={browserHistory}>
       <Switch>
         <Route exact path={AppRoute.MAIN}>
           <MainPage/>
@@ -35,11 +39,14 @@ function App(props) {
         <Route exact path={AppRoute.LOGIN}>
           <LoginPage/>
         </Route>
-        <Route exact path={AppRoute.FAVORITES}>
-          <FavoritesPage
-            offers={offers}
-          />
-        </Route>
+        <PrivateRoute
+          exact
+          path={AppRoute.FAVORITES}
+          render={() => (
+            <FavoritesPage offers={offers}/>
+          )}
+        >
+        </PrivateRoute>
         <Route exact path={`${AppRoute.ROOM}/:id`}>
           <RoomPage
             offers={offers}
@@ -57,6 +64,7 @@ function App(props) {
 
 const mapStateToProps = (state) => ({
   isDataLoaded: state.isDataLoaded,
+  authorizationStatus: state.authorizationStatus,
   offers: state.offers,
 });
 
@@ -65,6 +73,7 @@ App.propTypes = {
   nearOffers: PropTypes.arrayOf(offersProp),
   comments: PropTypes.arrayOf(commentsProp),
   isDataLoaded: PropTypes.bool.isRequired,
+  authorizationStatus: PropTypes.string.isRequired,
 };
 
 export {App};
