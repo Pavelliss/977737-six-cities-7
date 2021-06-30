@@ -1,18 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 import {Link} from 'react-router-dom';
 
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {checkStatus} from '../../helper/helper';
 import {logout} from '../../store/api-actions';
+import {getAuthorizationStatus, getUserEmail} from '../../store/user/selector';
 
 function Header(props) {
-  const {
-    authorizationStatus,
-    userEmail,
-    logoutSession,
-  } = props;
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const userEmail = useSelector(getUserEmail);
+
+  const dispatch = useDispatch();
+
+  const logoutSession = () => {
+    dispatch(logout());
+  };
 
   const isAuthorization = checkStatus(AuthorizationStatus.AUTH ,authorizationStatus);
 
@@ -74,22 +77,4 @@ function Header(props) {
   );
 }
 
-Header.propTypes = {
-  authorizationStatus: PropTypes.string.isRequired,
-  userEmail: PropTypes.string,
-  logoutSession: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (store) => ({
-  authorizationStatus: store.authorizationStatus,
-  userEmail: store.userData,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  logoutSession() {
-    dispatch(logout());
-  },
-});
-
-export {Header};
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default Header;

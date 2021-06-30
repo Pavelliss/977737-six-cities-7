@@ -1,15 +1,18 @@
 import React, {useState} from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useDispatch} from 'react-redux';
 
 import {login} from '../../store/api-actions';
-import {ActionCreator} from '../../store/action';
+import {addUserEmail} from '../../store/action';
 import Header from '../header/header';
 
-function LoginPage (props) {
-  const {
-    onSubmit,
-  } = props;
+function LoginPage () {
+
+  const dispatch = useDispatch();
+
+  const onSubmit = (authData) => {
+    dispatch(login(authData));
+    dispatch(addUserEmail(authData['email']));
+  };
 
   const [userData, setUserData] = useState({
     email: '',
@@ -87,20 +90,4 @@ function LoginPage (props) {
   );
 }
 
-LoginPage.propTypes = {
-  onSubmit: PropTypes.func.isRequired,
-};
-
-const mapStateToProps = (store) => ({
-  authorizationStatus: store.authorizationStatus,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onSubmit(authData) {
-    dispatch(login(authData));
-    dispatch(ActionCreator.addUserEmail(authData['email']));
-  },
-});
-
-export {LoginPage};
-export default connect(mapStateToProps, mapDispatchToProps)(LoginPage);
+export default LoginPage;

@@ -1,3 +1,4 @@
+import {createAction} from '@reduxjs/toolkit';
 import {adaptOfferToClient} from '../services/adapter';
 
 const ActionType = {
@@ -7,41 +8,44 @@ const ActionType = {
   REQUIRED_AUTORIZATION: 'user/requiredAuthorization',
   LOGOUT: 'user/logout',
   REDIRECT_TO_ROUTE: 'login/redirect',
-  ADD_DATE_USER: 'login/addUserData',
+  ADD_USER_EMAIL: 'login/addUserData',
 };
 
 function adaptOffersToClient (offers) {
   return offers.map((offer) => adaptOfferToClient(offer));
 }
 
+const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({
+  payload: city,
+}));
 
-const ActionCreator = {
-  changeCity: (city) => ({
-    type: ActionType.CHANGE_CITY,
-    payload: city,
-  }),
-  fillOffers: () => ({
-    type: ActionType.FILL_OFFERS,
-  }),
-  loadOffers: (offers) => ({
-    type: ActionType.LOAD_OFFERS,
-    payload: adaptOffersToClient(offers),
-  }),
-  requireAuthorization: (status) => ({
-    type: ActionType.REQUIRED_AUTORIZATION,
-    payload: status,
-  }),
-  logout: () => ({
-    type: ActionType.LOGOUT,
-  }),
-  redirectRoute: (url) => ({
-    type: ActionType.REDIRECT_TO_ROUTE,
-    payload: url,
-  }),
-  addUserEmail: (email) => ({
-    type: ActionType.ADD_DATE_USER,
-    payload: email,
-  }),
+const fillOffers = createAction(ActionType.FILL_OFFERS);
+
+const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({
+  payload: adaptOffersToClient(offers),
+}));
+
+const requireAuthorization = createAction(ActionType.REQUIRED_AUTORIZATION, (status) => ({
+  payload: status,
+}));
+
+const logout = createAction(ActionType.LOGOUT);
+
+const redirectRoute = createAction(ActionType.REDIRECT_TO_ROUTE, (url) => ({
+  payload: url,
+}));
+
+const addUserEmail = createAction(ActionType.ADD_USER_EMAIL, (email) => ({
+  payload: email,
+}));
+
+export {
+  ActionType,
+  changeCity,
+  fillOffers,
+  loadOffers,
+  requireAuthorization,
+  logout,
+  redirectRoute,
+  addUserEmail
 };
-
-export {ActionType, ActionCreator};

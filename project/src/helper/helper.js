@@ -12,7 +12,12 @@ const groupOffersPerCity = (cities, offer) => {
 
 const checkStatus = (status, activeStatus) => status === activeStatus;
 
+function getFiltredOffers (city, offers) {
+  return offers.filter((offer) => city === offer['city']['name']);
+}
+
 export {
   groupOffersPerCity,
-  checkStatus
+  checkStatus,
+  getFiltredOffers
 };

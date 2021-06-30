@@ -1,9 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
+
+import {getCity} from '../../../store/offers-data/selector';
 
 function LocationItem(props) {
-  const {city, onLocationChange, activeCity} = props;
+  const {city, onLocationChange} = props;
+
+  const activeCity = useSelector(getCity);
 
   return (
     <li className="locations__item">
@@ -24,15 +28,9 @@ function LocationItem(props) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  activeCity: state.city,
-});
-
 LocationItem.propTypes = {
   city: PropTypes.string.isRequired,
-  activeCity: PropTypes.string.isRequired,
   onLocationChange: PropTypes.func.isRequired,
 };
 
-export {LocationItem};
-export default connect(mapStateToProps, null)(LocationItem);
+export default LocationItem;

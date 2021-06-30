@@ -1,18 +1,25 @@
 import React from 'react';
-import PropTypes from 'prop-types';
-import {connect} from 'react-redux';
+import {useSelector, useDispatch} from 'react-redux';
 
-import offersProp from '../offer-prop/offer.prop';
-import {ActionCreator} from '../../store/action';
+import {changeCity, fillOffers} from '../../store/action';
+import {getCity, getFiltredOffers} from '../../store/offers-data/selector';
 
 import PlaceCardList from '../place-card-list/place-card-list';
 import Header from '../header/header';
 import Map from '../map/map';
 import LocationList from '../locations/location-list/location-list';
 
-function MainPage(props) {
-  const {offers, city, onLocationChange} = props;
+function MainPage() {
+  const offers = useSelector(getFiltredOffers);
+  const city = useSelector(getCity);
   const placeCount = offers.length;
+
+  const dispatch = useDispatch();
+
+  const onLocationChange = (activeCity) => {
+    dispatch(changeCity(activeCity));
+    dispatch(fillOffers());
+  };
 
   return (
     <div className="page page--gray page--main">
@@ -56,23 +63,4 @@ function MainPage(props) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  offers: state.filtredOffers,
-  city: state.city,
-});
-
-const mapDispatchToProps = (dispatch) => ({
-  onLocationChange(city) {
-    dispatch(ActionCreator.changeCity(city));
-    dispatch(ActionCreator.fillOffers());
-  },
-});
-
-MainPage.propTypes = {
-  offers: PropTypes.arrayOf(offersProp),
-  onLocationChange: PropTypes.func.isRequired,
-  city: PropTypes.string.isRequired,
-};
-
-export {MainPage};
-export default connect(mapStateToProps, mapDispatchToProps)(MainPage);
+export default MainPage;
