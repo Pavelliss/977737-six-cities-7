@@ -1,5 +1,3 @@
-const ZOOM = 12;
-const CITY = [52.38333, 4.9];
 const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
 
 const APIRoute = {
@@ -24,11 +22,12 @@ const AuthorizationStatus = {
   UNKNOWN: 'UNKNOWN',
 };
 
+const DEFALT_CITY = 'Paris';
+
 export {
   APIRoute,
   AppRoute,
   AuthorizationStatus,
-  ZOOM,
-  CITY,
-  CITIES
+  CITIES,
+  DEFALT_CITY
 };

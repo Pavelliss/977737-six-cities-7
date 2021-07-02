@@ -2,17 +2,21 @@ import { useEffect, useState } from 'react';
 import leaflet from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
-import {ZOOM} from '../const';
-
-
 function useMap (mapRef, city) {
   const [map, setMap] = useState(null);
 
   useEffect(() => {
     if (mapRef !== null && map === null) {
+      const latitude = city['location']['latitude'];
+      const longitude = city['location']['longitude'];
+      const zoom = city['location']['zoom'];
+
       const instance = leaflet.map(mapRef.current, {
-        center: city,
-        zoom: ZOOM,
+        center: {
+          lat: latitude,
+          lng: longitude,
+        },
+        zoom: zoom,
         zoomControl: false,
         marker: true,
       });

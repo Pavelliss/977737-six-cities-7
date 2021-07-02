@@ -46,10 +46,10 @@ const reducer = (state = initialState, action) => {
         authorizationStatus: AuthorizationStatus.NO_AUTH,
         userEmail: '',
       };
-    case ActionType.ADD_DATE_USER:
+    case ActionType.ADD_USER_EMAIL:
       return {
         ...state,
-        userData: action.payload,
+        userEmail: action.payload,
       };
     default:
       return state;

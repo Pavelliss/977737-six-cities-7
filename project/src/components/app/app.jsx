@@ -1,13 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
-import {connect} from 'react-redux';
+import {useSelector} from 'react-redux';
 
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {checkStatus} from '../../helper/helper';
 import offersProp from '../offer-prop/offer.prop';
 import commentsProp from '../comments-prop/comments.prop';
 import browserHistory from '../../browser-history';
+import {getLoadedDataStatue, getOffers} from '../../store/offers-data/selector';
+import {getAuthorizationStatus} from '../../store/user/selector';
 
 import MainPage from '../main-page/main-page';
 import LoginPage from '../login-page/login-page';
@@ -19,12 +21,13 @@ import PrivateRoute from '../private-route/private-route';
 
 function App(props) {
   const {
-    offers,
     comments,
     nearOffers,
-    isDataLoaded,
-    authorizationStatus,
   } = props;
+
+  const isDataLoaded = useSelector(getLoadedDataStatue);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+  const offers = useSelector(getOffers);
 
   if (checkStatus(AuthorizationStatus.UNKNOWN ,authorizationStatus) || !isDataLoaded) {
     return <LoadingScreen/>;
@@ -62,19 +65,9 @@ function App(props) {
   );
 }
 
-const mapStateToProps = (state) => ({
-  isDataLoaded: state.isDataLoaded,
-  authorizationStatus: state.authorizationStatus,
-  offers: state.offers,
-});
-
 App.propTypes = {
-  offers: PropTypes.arrayOf(offersProp),
   nearOffers: PropTypes.arrayOf(offersProp),
   comments: PropTypes.arrayOf(commentsProp),
-  isDataLoaded: PropTypes.bool.isRequired,
-  authorizationStatus: PropTypes.string.isRequired,
 };
 
-export {App};
-export default connect(mapStateToProps, null)(App);
+export default App;
