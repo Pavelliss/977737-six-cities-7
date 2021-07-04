@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import {configureStore} from '@reduxjs/toolkit';
 import {Provider} from 'react-redux';
+import {Router as BrowserRouter} from 'react-router-dom';
 
 import App from './components/app/app';
 
@@ -12,6 +13,7 @@ import {requireAuthorization} from './store/action';
 import {AuthorizationStatus} from './const';
 import redirect from './store/redirect';
 import rootReducer from './store/root-reducer';
+import browserHistory from './browser-history';
 
 import offers from '../src/mock/offers';
 import comments from '../src/mock/comments';
@@ -39,10 +41,12 @@ store.dispatch(fetchOffers());
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      <App
-        nearOffers={offers.slice(0, COUNT_NEAR_OFFER)}
-        comments={comments}
-      />
+      <BrowserRouter history={browserHistory}>
+        <App
+          nearOffers={offers.slice(0, COUNT_NEAR_OFFER)}
+          comments={comments}
+        />
+      </BrowserRouter>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root'));

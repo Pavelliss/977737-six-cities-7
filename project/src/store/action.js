@@ -1,5 +1,4 @@
 import {createAction} from '@reduxjs/toolkit';
-import {adaptOfferToClient} from '../services/adapter';
 
 const ActionType = {
   CHANGE_CITY: '/changeCity',
@@ -11,10 +10,6 @@ const ActionType = {
   ADD_USER_EMAIL: 'login/addUserData',
 };
 
-function adaptOffersToClient (offers) {
-  return offers.map((offer) => adaptOfferToClient(offer));
-}
-
 const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({
   payload: city,
 }));
@@ -22,7 +17,7 @@ const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({
 const fillOffers = createAction(ActionType.FILL_OFFERS);
 
 const loadOffers = createAction(ActionType.LOAD_OFFERS, (offers) => ({
-  payload: adaptOffersToClient(offers),
+  payload: offers,
 }));
 
 const requireAuthorization = createAction(ActionType.REQUIRED_AUTORIZATION, (status) => ({

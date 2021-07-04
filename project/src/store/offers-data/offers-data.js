@@ -15,7 +15,7 @@ const offersData = createReducer(initialState, (builder) => {
   builder
     .addCase(loadOffers, (state, action) => {
       state.offers = action.payload;
-      state.filtredOffers = getFiltredOffers(state.city, action.payload);
+      state.filtredOffers = getFiltredOffers(state.city, state.offers);
       state.isDataLoaded = true;
     })
     .addCase(fillOffers, (state) => {
