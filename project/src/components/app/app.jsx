@@ -1,13 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {Switch, Route, Router as BrowserRouter} from 'react-router-dom';
+import {Switch, Route} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {checkStatus} from '../../helper/helper';
 import offersProp from '../offer-prop/offer.prop';
 import commentsProp from '../comments-prop/comments.prop';
-import browserHistory from '../../browser-history';
 import {getLoadedDataStatue, getOffers} from '../../store/offers-data/selector';
 import {getAuthorizationStatus} from '../../store/user/selector';
 
@@ -34,34 +33,32 @@ function App(props) {
   }
 
   return (
-    <BrowserRouter history={browserHistory}>
-      <Switch>
-        <Route exact path={AppRoute.MAIN}>
-          <MainPage/>
-        </Route>
-        <Route exact path={AppRoute.LOGIN}>
-          <LoginPage/>
-        </Route>
-        <PrivateRoute
-          exact
-          path={AppRoute.FAVORITES}
-          render={() => (
-            <FavoritesPage offers={offers}/>
-          )}
-        >
-        </PrivateRoute>
-        <Route exact path={`${AppRoute.ROOM}/:id`}>
-          <RoomPage
-            offers={offers}
-            nearOffers={nearOffers}
-            comments={comments}
-          />
-        </Route>
-        <Route>
-          <NotFoundPage/>
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <Switch>
+      <Route exact path={AppRoute.MAIN}>
+        <MainPage/>
+      </Route>
+      <Route exact path={AppRoute.LOGIN}>
+        <LoginPage/>
+      </Route>
+      <PrivateRoute
+        exact
+        path={AppRoute.FAVORITES}
+        render={() => (
+          <FavoritesPage offers={offers}/>
+        )}
+      >
+      </PrivateRoute>
+      <Route exact path={`${AppRoute.ROOM}/:id`}>
+        <RoomPage
+          offers={offers}
+          nearOffers={nearOffers}
+          comments={comments}
+        />
+      </Route>
+      <Route>
+        <NotFoundPage/>
+      </Route>
+    </Switch>
   );
 }
 

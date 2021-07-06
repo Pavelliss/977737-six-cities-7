@@ -5,10 +5,16 @@ import {
   logout as closeSession
 } from './action';
 import {APIRoute, AuthorizationStatus, AppRoute} from '../const';
+import {adaptOfferToClient} from '../services/adapter';
+
+function adaptOffersToClient (offers) {
+  return offers.map((offer) => adaptOfferToClient(offer));
+}
 
 const fetchOffers = () => (dispatch, _getState, api) => (
   api.get(APIRoute.OFFERS)
-    .then(({data}) => dispatch(loadOffers(data)))
+    .then(({data}) => adaptOffersToClient(data))
+    .then((data) => dispatch(loadOffers(data)))
 );
 
 const checkAuth = () => (dispatch, _getState, api) => (
