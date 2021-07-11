@@ -6,7 +6,7 @@ import offersProp from '../offer-prop/offer.prop';
 import commentsProp from '../comments-prop/comments.prop';
 
 import Header from '../header/header';
-import PropertyReviews from '../property-reviews/property reviews';
+import PropertyReviews from '../property-reviews/property-reviews';
 import NearPlaces from '../near-places/near-plases';
 import Map from '../map/map';
 

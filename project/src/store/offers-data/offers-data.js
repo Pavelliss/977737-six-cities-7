@@ -1,6 +1,11 @@
 import {createReducer} from '@reduxjs/toolkit';
 
-import {loadOffers, fillOffers, changeCity} from '../action';
+import {
+  loadOffers,
+  fillOffers,
+  changeCity,
+  changeActiveCardId
+} from '../action';
 import {getFiltredOffers} from '../../helper/helper';
 import {DEFALT_CITY} from '../../const';
 
@@ -9,6 +14,7 @@ const initialState = {
   offers: [],
   filtredOffers: [],
   isDataLoaded: false,
+  activeCardId: null,
 };
 
 const offersData = createReducer(initialState, (builder) => {
@@ -23,6 +29,9 @@ const offersData = createReducer(initialState, (builder) => {
     })
     .addCase(changeCity, (state, action) => {
       state.city = action.payload;
+    })
+    .addCase(changeActiveCardId, (state, action) => {
+      state.activeCardId = action.payload;
     });
 });
 

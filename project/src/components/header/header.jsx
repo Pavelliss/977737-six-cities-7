@@ -7,7 +7,7 @@ import {checkStatus} from '../../helper/helper';
 import {logout} from '../../store/api-actions';
 import {getAuthorizationStatus, getUserEmail} from '../../store/user/selector';
 
-function Header(props) {
+function Header() {
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const userEmail = useSelector(getUserEmail);
 

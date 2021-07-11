@@ -44,6 +44,7 @@ const initialState = {
   offers: [],
   filtredOffers: [],
   isDataLoaded: false,
+  activeCardId: null,
 };
 
 describe('Reducer: offersData', () => {
