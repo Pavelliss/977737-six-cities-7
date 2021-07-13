@@ -8,6 +8,7 @@ const ActionType = {
   LOGOUT: 'user/logout',
   REDIRECT_TO_ROUTE: 'login/redirect',
   ADD_USER_EMAIL: 'login/addUserData',
+  CHANGE_ACTIVE_CARD_ID: '/changeActiveCardId',
 };
 
 const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({
@@ -34,6 +35,10 @@ const addUserEmail = createAction(ActionType.ADD_USER_EMAIL, (email) => ({
   payload: email,
 }));
 
+const changeActiveCardId = createAction(ActionType.CHANGE_ACTIVE_CARD_ID, (id) => ({
+  payload: id,
+}));
+
 export {
   ActionType,
   changeCity,
@@ -42,5 +47,6 @@ export {
   requireAuthorization,
   logout,
   redirectRoute,
-  addUserEmail
+  addUserEmail,
+  changeActiveCardId
 };

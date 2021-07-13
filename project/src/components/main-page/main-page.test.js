@@ -1,14 +1,20 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
-import {Router} from 'react-router-dom';
+import {Router} from 'react-router';
 import {createMemoryHistory} from 'history';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
-import {
-  AuthorizationStatus,
-  DEFALT_CITY,
-  AppRoute} from '../../const';
-import App from './app';
+
+import {AuthorizationStatus, DEFALT_CITY} from '../../const';
+import MainPage from './main-page';
+
+jest.mock('../../components/map/map', () => {
+  const mockMap = () => <h1>Map</h1>;
+  return {
+    __esModule: true,
+    default: mockMap,
+  };
+});
 
 const testOffers = [
   {
@@ -49,9 +55,8 @@ const testOffers = [
 
 let history = null;
 let store = null;
-let testApp = null;
 
-describe('Application Routing', () => {
+describe('Component: MainPage', () => {
   beforeAll(() => {
     history = createMemoryHistory();
 
@@ -66,38 +71,21 @@ describe('Application Routing', () => {
         offers: testOffers,
         filtredOffers: testOffers,
         isDataLoaded: true,
+        activeCardId: null,
       },
     });
+  });
 
-    testApp = (
+  it('Should render correctly', () => {
+    render(
       <Provider store={store}>
         <Router history={history}>
-          <App/>
+          <MainPage/>
         </Router>
-      </Provider>
+      </Provider>,
     );
-  });
 
-  it('Should render "MainPage" when user navigate to "/"', () => {
-    history.push(AppRoute.MAIN);
-    render(testApp);
-
-    expect(screen.getByText(/1 places to stay in Paris/i)).toBeInTheDocument();
-  });
-
-  it('Should render "LoginPage" when an user navigate to "login" url', () => {
-    history.push(AppRoute.LOGIN);
-    render(testApp);
-
-    expect(screen.getByPlaceholderText(/Email/i)).toBeInTheDocument();
-    expect(screen.getByPlaceholderText(/Password/i)).toBeInTheDocument();
-  });
-
-  it('Should render "NotFoundScreen" when user navigate to non-existent route', () => {
-    history.push('/fake-route');
-    render(testApp);
-
-    expect(screen.getByText('404. Page not found')).toBeInTheDocument();
+    expect(screen.getByText(`1 places to stay in ${DEFALT_CITY}`)).toBeInTheDocument();
+    expect(screen.getByText(/Map/i)).toBeInTheDocument();
   });
 });
-

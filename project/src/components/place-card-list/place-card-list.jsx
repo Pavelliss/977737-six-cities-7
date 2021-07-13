@@ -1,13 +1,17 @@
-import React, {useState} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
+import {useDispatch} from 'react-redux';
 
+import {changeActiveCardId} from '../../store/action';
 import PlaceCard from '../place-card/place-card';
 import offersProp from '../offer-prop/offer.prop';
 
 function PlaceCardList(props) {
   const {offers} = props;
-  // eslint-disable-next-line no-unused-vars
-  const [activeCardId, setActiveCardId] = useState('');
+  const dispatch = useDispatch();
+  const onCardPointerEnter = (id) => {
+    dispatch(changeActiveCardId(id));
+  };
 
   return (
     <div className="cities__places-list places__list tabs__content">
@@ -15,7 +19,7 @@ function PlaceCardList(props) {
         <PlaceCard
           offer={offer}
           key={offer.id}
-          onCardPointerEnter={(id) => setActiveCardId(id)}
+          onCardPointerEnter={onCardPointerEnter}
         />
       ))}
     </div>

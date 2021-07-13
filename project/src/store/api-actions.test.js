@@ -116,9 +116,11 @@ describe('Async operations', () => {
     const serverAnswer = [{test: true}];
     const logoutLoader = logout();
 
+    Storage.prototype.removeItem = jest.fn();
+
     apiMock
       .onDelete(APIRoute.LOGOUT)
-      .reply(200, serverAnswer);
+      .reply(204, serverAnswer);
 
     return logoutLoader(dispatch, () => {}, api)
       .then(() => {
@@ -126,6 +128,9 @@ describe('Async operations', () => {
         expect(dispatch).toHaveBeenNthCalledWith(1, {
           type: ActionType.LOGOUT,
         });
+
+        expect(Storage.prototype.removeItem).toHaveBeenCalledTimes(1);
+        expect(Storage.prototype.removeItem).nthCalledWith(1, 'token');
       });
   });
 

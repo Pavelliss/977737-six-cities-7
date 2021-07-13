@@ -44,5 +44,6 @@ describe('Component: LoginPage', () => {
 
     expect(screen.getByDisplayValue(/user/i)).toBeInTheDocument();
     expect(screen.getByDisplayValue(/000/i)).toBeInTheDocument();
+    expect(screen.getByRole('button').textContent).toBe('Sign in');
   });
 });
