@@ -16,8 +16,11 @@ function getFiltredOffers (city, offers) {
   return offers.filter((offer) => city === offer['city']['name']);
 }
 
+const convertRaitingToPercents = (raiting) => Math.round(raiting * 2) * 10;
+
 export {
   groupOffersPerCity,
   checkStatus,
-  getFiltredOffers
+  getFiltredOffers,
+  convertRaitingToPercents
 };

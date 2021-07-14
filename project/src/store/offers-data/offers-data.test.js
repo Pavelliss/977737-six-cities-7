@@ -1,4 +1,4 @@
-import {DEFALT_CITY} from '../../const';
+import {DEFALT_CITY, SortType} from '../../const';
 import {offersData} from './offers-data';
 import {ActionType} from '../action';
 
@@ -45,6 +45,7 @@ const initialState = {
   filtredOffers: [],
   isDataLoaded: false,
   activeCardId: null,
+  sortType: SortType.POPULAR,
 };
 
 describe('Reducer: offersData', () => {

@@ -9,6 +9,7 @@ const ActionType = {
   REDIRECT_TO_ROUTE: 'login/redirect',
   ADD_USER_EMAIL: 'login/addUserData',
   CHANGE_ACTIVE_CARD_ID: '/changeActiveCardId',
+  CHANGE_SORT_TYPE: '/changeSortType',
 };
 
 const changeCity = createAction(ActionType.CHANGE_CITY, (city) => ({
@@ -39,6 +40,10 @@ const changeActiveCardId = createAction(ActionType.CHANGE_ACTIVE_CARD_ID, (id) =
   payload: id,
 }));
 
+const changeSortType = createAction(ActionType.CHANGE_SORT_TYPE, (sortType) => ({
+  payload: sortType,
+}));
+
 export {
   ActionType,
   changeCity,
@@ -48,5 +53,6 @@ export {
   logout,
   redirectRoute,
   addUserEmail,
-  changeActiveCardId
+  changeActiveCardId,
+  changeSortType
 };
