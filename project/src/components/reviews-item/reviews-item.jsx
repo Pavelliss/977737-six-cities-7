@@ -1,8 +1,8 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import dayjs from 'dayjs';
 
 import commentsProp from '../comments-prop/comments.prop';
+import {convertRaitingToPercents} from '../../helper/helper';
 
 function ReviewsItem(props) {
   const {userComment} = props;
@@ -10,7 +10,10 @@ function ReviewsItem(props) {
     comment,
     user,
     date,
+    rating,
   } = userComment;
+
+  const offerRaiting = `${convertRaitingToPercents(rating)}%`;
 
   return (
     <li className="reviews__item">
@@ -25,7 +28,7 @@ function ReviewsItem(props) {
       <div className="reviews__info">
         <div className="reviews__rating rating">
           <div className="reviews__stars rating__stars">
-            <span style={{width: '80%'}}></span>
+            <span style={{width: offerRaiting}}></span>
             <span className="visually-hidden">Rating</span>
           </div>
         </div>
@@ -41,7 +44,7 @@ function ReviewsItem(props) {
 }
 
 ReviewsItem.propTypes = {
-  userComment: PropTypes.shape(commentsProp),
+  userComment: commentsProp,
 };
 
 export default ReviewsItem;

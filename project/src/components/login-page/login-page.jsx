@@ -54,7 +54,7 @@ function LoginPage () {
                   type="email"
                   name="email"
                   placeholder="Email"
-                  required=""
+                  required={'required'}
                   onChange={onInputChange}
                   autoFocus
                   data-testid="email"
@@ -66,7 +66,7 @@ function LoginPage () {
                   className="login__input form__input"
                   type="password" name="password"
                   placeholder="Password"
-                  required=""
+                  required={'required'}
                   onChange={onInputChange}
                   data-testid="password"
                 />

@@ -1,12 +1,9 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import {Switch, Route} from 'react-router-dom';
 import {useSelector} from 'react-redux';
 
 import {AppRoute, AuthorizationStatus} from '../../const';
 import {checkStatus} from '../../helper/helper';
-import offersProp from '../offer-prop/offer.prop';
-import commentsProp from '../comments-prop/comments.prop';
 import {getLoadedDataStatue, getOffers} from '../../store/offers-data/selector';
 import {getAuthorizationStatus} from '../../store/user/selector';
 
@@ -18,12 +15,7 @@ import NotFoundPage from '../not-found-page/not-found-page';
 import LoadingScreen from '../loading-screen/loading-screen';
 import PrivateRoute from '../private-route/private-route';
 
-function App(props) {
-  const {
-    comments,
-    nearOffers,
-  } = props;
-
+function App() {
   const isDataLoaded = useSelector(getLoadedDataStatue);
   const authorizationStatus = useSelector(getAuthorizationStatus);
   const offers = useSelector(getOffers);
@@ -49,11 +41,7 @@ function App(props) {
       >
       </PrivateRoute>
       <Route exact path={`${AppRoute.ROOM}/:id`}>
-        <RoomPage
-          offers={offers}
-          nearOffers={nearOffers}
-          comments={comments}
-        />
+        <RoomPage/>
       </Route>
       <Route>
         <NotFoundPage/>
@@ -61,10 +49,5 @@ function App(props) {
     </Switch>
   );
 }
-
-App.propTypes = {
-  nearOffers: PropTypes.arrayOf(offersProp),
-  comments: PropTypes.arrayOf(commentsProp),
-};
 
 export default App;

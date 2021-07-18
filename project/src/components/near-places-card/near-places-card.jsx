@@ -1,6 +1,5 @@
 import React from 'react';
 import {Link} from 'react-router-dom';
-import PropTypes from 'prop-types';
 
 import offersProp from '../offer-prop/offer.prop';
 import {AppRoute} from '../../const';
@@ -56,7 +55,7 @@ function NearPlacesCard(props) {
 }
 
 NearPlacesCard.propTypes = {
-  nearOffer: PropTypes.shape(offersProp),
+  nearOffer: offersProp,
 };
 
 export default NearPlacesCard;

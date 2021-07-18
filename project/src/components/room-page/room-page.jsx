@@ -1,24 +1,66 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
 import {useParams} from 'react-router-dom';
-
-import offersProp from '../offer-prop/offer.prop';
-import commentsProp from '../comments-prop/comments.prop';
+import {useDispatch, useSelector} from 'react-redux';
 
 import Header from '../header/header';
 import PropertyReviews from '../property-reviews/property-reviews';
 import NearPlaces from '../near-places/near-plases';
 import Map from '../map/map';
+import LoadingScreen from '../loading-screen/loading-screen';
 
-function RoomPage (props) {
-  const {
-    offers,
-    comments,
-    nearOffers,
-  } = props;
+import {resetChosenOfferState} from '../../store/action';
+import {convertRaitingToPercents, checkStatus} from '../../helper/helper';
+import {AuthorizationStatus} from '../../const';
+import {sendComment} from '../../store/api-actions';
 
+import {
+  fetchChosenOffer,
+  fetchComments,
+  fetchNearbyOffers
+} from '../../store/api-actions';
+
+import {
+  getChosenOffer,
+  getComments,
+  getNearbyOffers
+} from '../../store/chosen-offer/selector';
+import {getAuthorizationStatus} from '../../store/user/selector';
+
+function RoomPage () {
   const {id} = useParams();
-  const activeOffer = offers.find((offer) => offer['id'] === +id);
+
+  const dispatch = useDispatch();
+
+  const activeOffer = useSelector(getChosenOffer);
+  const comments = useSelector(getComments);
+  const nearbyOffers = useSelector(getNearbyOffers);
+  const authorizationStatus = useSelector(getAuthorizationStatus);
+
+  const isAuthorization = checkStatus(AuthorizationStatus.AUTH ,authorizationStatus);
+
+  const onFormSubmit = (reviewData, offerId) => {
+    dispatch(sendComment(reviewData, offerId));
+    dispatch(fetchComments(id));
+  };
+
+  useEffect(() => {
+    dispatch(fetchChosenOffer(id));
+    dispatch(fetchComments(id));
+    dispatch(fetchNearbyOffers(id));
+
+    return () => {
+      dispatch(resetChosenOfferState());
+    };
+  }, [id, dispatch]);
+
+  if (
+    activeOffer === null ||
+    comments === null ||
+    nearbyOffers === null
+  ) {
+    return <LoadingScreen/>;
+  }
+
   const {
     isPremium,
     isFavorite,
@@ -28,7 +70,11 @@ function RoomPage (props) {
     goods,
     type,
     images,
+    host,
+    description,
   } = activeOffer;
+
+  const offerRaiting = `${convertRaitingToPercents(rating)}%`;
 
   return (
     <div className="page">
@@ -69,7 +115,7 @@ function RoomPage (props) {
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">
-                  <span style={{width: '80%'}}></span>
+                  <span style={{width: offerRaiting}}></span>
                   <span className="visually-hidden">Rating</span>
                 </div>
                 <span className="property__rating-value rating__value">{rating}</span>
@@ -103,41 +149,37 @@ function RoomPage (props) {
                 <h2 className="property__host-title">Meet the host</h2>
                 <div className="property__host-user user">
                   <div className="property__avatar-wrapper property__avatar-wrapper--pro user__avatar-wrapper">
-                    <img className="property__avatar user__avatar" src="img/avatar-angelina.jpg" width="74" height="74" alt="Host avatar" />
+                    <img className="property__avatar user__avatar" src={host.avatarUrl} width="74" height="74" alt="Host avatar" />
                   </div>
                   <span className="property__user-name">
-                    Angelina
+                    {host.name}
                   </span>
                   <span className="property__user-status">
-                    Pro
+                    {host.isPro ? 'Pro' : ''}
                   </span>
                 </div>
                 <div className="property__description">
                   <p className="property__text">
-                    A quiet cozy and picturesque that hides behind a a river by the unique lightness of Amsterdam. The building is green and from 18th century.
-                  </p>
-                  <p className="property__text">
-                    An independent House, strategically located between Rembrand Square and National Opera, but where the bustle of the city comes to rest in this alley flowery and colorful.
+                    {description}
                   </p>
                 </div>
               </div>
-              <PropertyReviews comments={comments}/>
+              <PropertyReviews
+                comments={comments}
+                isAuthorization={isAuthorization}
+                onSubmit={onFormSubmit}
+                id={id}
+              />
             </div>
           </div>
-          <Map offers={nearOffers} className={'property__map map'}/>
+          <Map offers={nearbyOffers} className={'property__map map'}/>
         </section>
         <div className="container">
-          <NearPlaces nearOffers={nearOffers}/>
+          <NearPlaces nearOffers={nearbyOffers}/>
         </div>
       </main>
     </div>
   );
 }
-
-RoomPage.propTypes = {
-  offers: PropTypes.arrayOf(offersProp),
-  nearOffers: PropTypes.arrayOf(offersProp),
-  comments: PropTypes.arrayOf(commentsProp),
-};
 
 export default RoomPage;

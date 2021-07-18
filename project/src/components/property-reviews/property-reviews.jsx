@@ -7,7 +7,12 @@ import ReviewsForm from '../reviews-form/reviews-form';
 import ReviewsList from '../reviews-list/reviews-list';
 
 function PropertyReviews(props) {
-  const {comments} = props;
+  const {
+    comments,
+    isAuthorization,
+    onSubmit,
+    id,
+  } = props;
   const commentCount = comments.length;
 
   return (
@@ -18,13 +23,20 @@ function PropertyReviews(props) {
         </span>
       </h2>
       <ReviewsList comments={comments}/>
-      <ReviewsForm/>
+      {
+        isAuthorization
+          ? <ReviewsForm onSubmit={onSubmit} id={id}/>
+          : ''
+      }
     </section>
   );
 }
 
 PropertyReviews.propTypes = {
   comments: PropTypes.arrayOf(commentsProp),
+  isAuthorization: PropTypes.bool.isRequired,
+  onSubmit: PropTypes.func.isRequired,
+  id: PropTypes.string.isRequired,
 };
 
 export default PropertyReviews;

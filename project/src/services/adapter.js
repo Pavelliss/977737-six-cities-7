@@ -26,4 +26,24 @@ function adaptOfferToClient(offer) {
   return adaptedOffer;
 }
 
-export {adaptOfferToClient};
+function adartCommentToClient(comment) {
+  const adaptedComment = Object.assign(
+    {},
+    comment,
+    {
+      user: {
+        id: comment.user.id,
+        isPro: comment.user.is_pro,
+        name: comment.user.name,
+        avatarUrl: comment.user.avatar_url,
+      },
+    },
+  );
+
+  delete adaptedComment.user.is_pro;
+  delete adaptedComment.user.avatar_url;
+
+  return adaptedComment;
+}
+
+export {adaptOfferToClient, adartCommentToClient};

@@ -15,11 +15,6 @@ import redirect from './store/middlewares/redirect';
 import rootReducer from './store/root-reducer';
 import browserHistory from './browser-history';
 
-import offers from '../src/mock/offers';
-import comments from '../src/mock/comments';
-
-const COUNT_NEAR_OFFER = 3;
-
 const onUnauthorized = () => store.dispatch(
   requireAuthorization(AuthorizationStatus.NO_AUTH));
 
@@ -42,10 +37,7 @@ ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
       <BrowserRouter history={browserHistory}>
-        <App
-          nearOffers={offers.slice(0, COUNT_NEAR_OFFER)}
-          comments={comments}
-        />
+        <App/>
       </BrowserRouter>
     </Provider>
   </React.StrictMode>,
