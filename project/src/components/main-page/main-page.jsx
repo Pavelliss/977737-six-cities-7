@@ -1,28 +1,23 @@
 import React from 'react';
-import {useSelector, useDispatch} from 'react-redux';
+import {useSelector} from 'react-redux';
 
-import {changeCity, fillOffers, changeSortType} from '../../store/action';
 import {getCity, getFiltredOffers} from '../../store/offers-data/selector';
-import {SortType} from '../../const';
 
 import PlaceCardList from '../place-card-list/place-card-list';
 import Header from '../header/header';
 import Map from '../map/map';
 import LocationList from '../locations/location-list/location-list';
 import SortForm from '../sort-form/sort-form';
+import NoOffersPage from '../no-offers-page/no-offers-page';
 
 function MainPage() {
   const offers = useSelector(getFiltredOffers);
   const city = useSelector(getCity);
   const placeCount = offers.length;
 
-  const dispatch = useDispatch();
-
-  const onLocationChange = (activeCity) => {
-    dispatch(changeCity(activeCity));
-    dispatch(fillOffers());
-    dispatch(changeSortType(SortType.POPULAR));
-  };
+  if (offers.length === 0) {
+    return <NoOffersPage/>;
+  }
 
   return (
     <div className="page page--gray page--main">
@@ -31,7 +26,7 @@ function MainPage() {
         <h1 className="visually-hidden">Cities</h1>
         <div className="tabs">
           <section className="locations container">
-            <LocationList onLocationChange={onLocationChange}/>
+            <LocationList/>
           </section>
         </div>
         <div className="cities">

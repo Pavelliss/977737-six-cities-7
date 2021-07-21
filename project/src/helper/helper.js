@@ -1,3 +1,5 @@
+import dayjs from 'dayjs';
+
 const groupOffersPerCity = (cities, offer) => {
   const cityName = offer['city']['name'];
 
@@ -18,9 +20,27 @@ function getFiltredOffers (city, offers) {
 
 const convertRaitingToPercents = (raiting) => Math.round(raiting * 2) * 10;
 
+const updateItem = (items, update) => {
+  const index = items.findIndex((item) => item.id === update.id);
+
+  if (index === -1) {
+    return items;
+  }
+
+  return [
+    ...items.slice(0, index),
+    update,
+    ...items.slice(index + 1),
+  ];
+};
+
+const sortOfferTime = (offerA, offerB) => dayjs(offerB.date) - dayjs(offerA.date);
+
 export {
   groupOffersPerCity,
   checkStatus,
   getFiltredOffers,
-  convertRaitingToPercents
+  convertRaitingToPercents,
+  updateItem,
+  sortOfferTime
 };

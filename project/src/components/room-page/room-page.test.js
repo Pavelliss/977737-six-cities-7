@@ -89,6 +89,9 @@ describe('Component: RoomPage', () => {
         nearbyOffers: testOffers,
         isReviewFormDisabled: false,
       },
+      OFFERS: {
+        offers: testOffers,
+      },
     });
 
     const dispatch = jest.fn();
@@ -108,6 +111,6 @@ describe('Component: RoomPage', () => {
     expect(screen.getByText(/To bookmarks/i)).toBeInTheDocument();
     expect(screen.getByText(/Meet the host/i)).toBeInTheDocument();
     expect(screen.getByText(/Map/i)).toBeInTheDocument();
-    expect(useDispatch).toBeCalledTimes(2);
+    expect(useDispatch).toBeCalledTimes(3);
   });
 });

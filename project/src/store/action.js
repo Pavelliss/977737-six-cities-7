@@ -2,6 +2,7 @@ import {createAction} from '@reduxjs/toolkit';
 
 const ActionType = {
   LOAD_OFFERS: 'data/loadOffers',
+  UPDATE_OFFER: 'data/updateOffer',
   LOAD_CHOSEN_OFFER: 'room/loadChosenOffer',
   LOAD_COMMENTS: 'room/loadComments',
   LOAD_NEARBY_OFFERS: 'room/loadNearbyOffers',
@@ -67,6 +68,9 @@ const toggleStateReviewForm = createAction(ActionType.TOGGLE_STATE_REVIEW_FORM, 
   payload: value,
 }));
 
+const updateOffer = createAction(ActionType.UPDATE_OFFER, (offer) => ({
+  payload: offer,
+}));
 
 export {
   loadOffers,
@@ -83,5 +87,6 @@ export {
   changeActiveCardId,
   changeSortType,
   resetChosenOfferState,
-  toggleStateReviewForm
+  toggleStateReviewForm,
+  updateOffer
 };

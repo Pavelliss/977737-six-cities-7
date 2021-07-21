@@ -3,7 +3,7 @@ const CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseld
 const APIRoute = {
   LOGIN: '/login',
   LOGOUT: '/logout',
-  FAVORITES: '/favorites',
+  FAVORITE: '/favorite',
   COMMENTS: '/comments',
   OFFERS: '/hotels',
 };

@@ -1,10 +1,14 @@
 import React from 'react';
 import {render, screen} from '@testing-library/react';
 import {createMemoryHistory} from 'history';
-import { Router } from 'react-router-dom';
+import {Router} from 'react-router-dom';
+import {Provider} from 'react-redux';
+import configureStore from 'redux-mock-store';
 
 import FavoritesPage from '../favorites-page/favorites-page';
+import {AuthorizationStatus} from '../../const';
 
+const mockStore = configureStore({});
 const testOffers = [
   {
     'bedrooms': 3,
@@ -26,7 +30,7 @@ const testOffers = [
     },
     'id': 2,
     'images': ['img/studio-01.jpg', 'img/room.jpg'],
-    'isFavorite': false,
+    'isFavorite': true,
     'isPremium': true,
     'location': {
       'latitude': 52.3909553943508,
@@ -42,21 +46,22 @@ const testOffers = [
   },
 ];
 
-jest.mock('../../components/header/header', () => {
-  const mockHeader = () => <header>Header</header>;
-  return {
-    __esModule: true,
-    default: mockHeader,
-  };
-});
-
 describe('Component: FavoritesPage', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();
+    const store = mockStore({
+      USER: {
+        authorizationStatus: AuthorizationStatus.AUTH,
+        userEmail: '',
+      },
+    });
+
     render(
-      <Router history={history}>
-        <FavoritesPage offers={testOffers}/>
-      </Router>,
+      <Provider store={store}>
+        <Router history={history}>
+          <FavoritesPage offers={testOffers}/>
+        </Router>
+      </Provider>,
     );
 
     expect(screen.getByText('Saved listing')).toBeInTheDocument();

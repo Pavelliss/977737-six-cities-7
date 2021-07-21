@@ -2,17 +2,26 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import commentsProp from '../comments-prop/comments.prop';
+import {sortOfferTime} from '../../helper/helper';
 
 import ReviewsForm from '../reviews-form/reviews-form';
 import ReviewsList from '../reviews-list/reviews-list';
 
+const MAX_COMMENTT_COUNT = 10;
+
 function PropertyReviews(props) {
   const {
-    comments,
     isAuthorization,
     onSubmit,
     id,
   } = props;
+
+  let {comments} = props;
+
+  comments = comments
+    .slice(0, MAX_COMMENTT_COUNT)
+    .sort(sortOfferTime);
+
   const commentCount = comments.length;
 
   return (

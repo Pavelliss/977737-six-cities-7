@@ -43,6 +43,14 @@ const testOffer = {
 };
 let history = null;
 
+jest.mock('../../components/favorites-button/favorites-button', () => {
+  const mockMap = () => <h1>button</h1>;
+  return {
+    __esModule: true,
+    default: mockMap,
+  };
+});
+
 describe('Component: FavoritesCard', () => {
   beforeAll(() => {
     history = createMemoryHistory();

@@ -41,6 +41,14 @@ const testOffers = [{
   'type': 'apartment',
 }];
 
+jest.mock('../../components/favorites-button/favorites-button', () => {
+  const mockMap = () => <h1>button</h1>;
+  return {
+    __esModule: true,
+    default: mockMap,
+  };
+});
+
 describe('Component: FavoritesItem', () => {
   it('should render correctly', () => {
     const history = createMemoryHistory();

@@ -8,12 +8,14 @@ import {toggleStateReviewForm
 
 const COUT_STARS = 5;
 const MIN_LENGTH_REVIEW = 50;
+const MAX_LENGTH_REVIEW = 300;
 
 let isValid = false;
 
 const checkValid = (data) => (
   data.rating &&
-  data.comment.length >= MIN_LENGTH_REVIEW
+  data.comment.length >= MIN_LENGTH_REVIEW &&
+  data.comment.length <= MAX_LENGTH_REVIEW
     ? isValid = true
     : isValid = false
 );

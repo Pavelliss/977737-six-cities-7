@@ -5,8 +5,11 @@ import offersProp from '../offer-prop/offer.prop';
 
 import NearPlacesCard from '../near-places-card/near-places-card';
 
+const NEAR_PLACES_MAX_COUNT = 3;
+
 function NearPlaces(props) {
-  const {nearOffers} = props;
+  let {nearOffers} = props;
+  nearOffers = nearOffers.slice(0, NEAR_PLACES_MAX_COUNT);
 
   return (
     <section className="near-places places">

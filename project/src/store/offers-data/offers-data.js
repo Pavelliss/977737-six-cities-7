@@ -5,11 +5,13 @@ import {
   fillOffers,
   changeCity,
   changeActiveCardId,
-  changeSortType
+  changeSortType,
+  updateOffer
 } from '../action';
 import {getFiltredOffers} from '../../helper/helper';
 import {DEFALT_CITY, SortType} from '../../const';
 import {sort} from '../../helper/sort';
+import {updateItem} from '../../helper/helper';
 
 const initialState = {
   city: DEFALT_CITY,
@@ -39,6 +41,10 @@ const offersData = createReducer(initialState, (builder) => {
     .addCase(changeSortType, (state, action) => {
       state.sortType = action.payload;
       state.filtredOffers = sort[state.sortType](getFiltredOffers(state.city, state.offers));
+    })
+    .addCase(updateOffer, (state, action) => {
+      state.offers = updateItem(state.offers, action.payload);
+      state.filtredOffers = getFiltredOffers(state.city, state.offers);
     });
 });
 

@@ -6,6 +6,7 @@ import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 
 import PlaceCardList from './place-card-list';
+import {AuthorizationStatus} from '../../const';
 
 const testOffers = [{
   'bedrooms': 3,
@@ -52,6 +53,9 @@ describe('Component: PlaceCardList', () => {
 
   it('should render correctly', () => {
     const store = mockStore({
+      USER: {
+        authorizationStatus: AuthorizationStatus.NO_AUTH,
+      },
       OFFERS: {
         activeCardId: null,
       },

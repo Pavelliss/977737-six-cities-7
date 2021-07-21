@@ -9,6 +9,7 @@ import {
   requireAuthorization,
   redirectRoute,
   toggleStateReviewForm,
+  updateOffer,
   logout as closeSession
 } from './action';
 
@@ -81,6 +82,15 @@ const sendComment = (data, id) => (dispatch, _getState, api) => (
     })
 );
 
+const changeFavoriteStatus = (status, id) => (dispatch, _getState, api) => (
+  api.post(`${APIRoute.FAVORITE}/${id}/${status}`)
+    .then(({data}) => adaptOfferToClient(data))
+    .then((data) => {
+      dispatch(updateOffer(data));
+      dispatch(loadChosenOffer(data));
+    })
+);
+
 export {
   fetchChosenOffer,
   fetchComments,
@@ -89,5 +99,6 @@ export {
   checkAuth,
   login,
   logout,
-  sendComment
+  sendComment,
+  changeFavoriteStatus
 };

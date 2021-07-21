@@ -7,11 +7,15 @@ import PropertyReviews from '../property-reviews/property-reviews';
 import NearPlaces from '../near-places/near-plases';
 import Map from '../map/map';
 import LoadingScreen from '../loading-screen/loading-screen';
+import NotFoundPage from '../not-found-page/not-found-page';
 
 import {resetChosenOfferState} from '../../store/action';
 import {convertRaitingToPercents, checkStatus} from '../../helper/helper';
 import {AuthorizationStatus} from '../../const';
 import {sendComment} from '../../store/api-actions';
+import {getAuthorizationStatus} from '../../store/user/selector';
+import FavoritesButton from '../favorites-button/favorites-button';
+import {getOffers} from '../../store/offers-data/selector';
 
 import {
   fetchChosenOffer,
@@ -24,19 +28,20 @@ import {
   getComments,
   getNearbyOffers
 } from '../../store/chosen-offer/selector';
-import {getAuthorizationStatus} from '../../store/user/selector';
 
 function RoomPage () {
   const {id} = useParams();
 
   const dispatch = useDispatch();
 
+  const offers = useSelector(getOffers);
   const activeOffer = useSelector(getChosenOffer);
   const comments = useSelector(getComments);
   const nearbyOffers = useSelector(getNearbyOffers);
   const authorizationStatus = useSelector(getAuthorizationStatus);
 
   const isAuthorization = checkStatus(AuthorizationStatus.AUTH ,authorizationStatus);
+  const hasOffer = offers.some((offer) => offer['id'] === +id);
 
   const onFormSubmit = (reviewData, offerId) => {
     dispatch(sendComment(reviewData, offerId));
@@ -52,6 +57,10 @@ function RoomPage () {
       dispatch(resetChosenOfferState());
     };
   }, [id, dispatch]);
+
+  if (!hasOffer) {
+    return <NotFoundPage/>;
+  }
 
   if (
     activeOffer === null ||
@@ -101,17 +110,15 @@ function RoomPage () {
                 <h1 className="property__name">
                   {title}
                 </h1>
-                <button className={
-                  isFavorite
-                    ? 'property__bookmark-button property__bookmark-button--active button'
-                    : 'property__bookmark-button button'
-                } type="button"
-                >
-                  <svg className="property__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <FavoritesButton
+                  className={'property__bookmark'}
+                  isFavorite={isFavorite}
+                  id={+id}
+                  size={{
+                    width: 31,
+                    height: 33,
+                  }}
+                />
               </div>
               <div className="property__rating rating">
                 <div className="property__stars rating__stars">

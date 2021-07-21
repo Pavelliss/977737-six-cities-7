@@ -9,17 +9,15 @@ import FavoritesItem from '../favorites-item/favorites-item';
 function FavoritesList(props) {
   const {offers} = props;
 
-  const filtredOffers = offers
-    .filter((offer) => offer['isFavorite'])
-    .reduce(groupOffersPerCity, {});
+  const groupOffers = offers.reduce(groupOffersPerCity, {});
 
   return (
     <ul className="favorites__list">
-      {Object.keys(filtredOffers).map((city) => (
+      {Object.keys(groupOffers).map((city) => (
         <FavoritesItem
           key={city}
           city={city}
-          offers={filtredOffers[city]}
+          offers={groupOffers[city]}
         />
       ))}
     </ul>
