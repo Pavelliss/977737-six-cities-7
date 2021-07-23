@@ -5,11 +5,13 @@ const getOffers = (state) => state[NameSpace.OFFERS].offers;
 const getFiltredOffers = (state) => state[NameSpace.OFFERS].filtredOffers;
 const getLoadedDataStatue = (state) => state[NameSpace.OFFERS].isDataLoaded;
 const getActiveCardId = (state) => state[NameSpace.OFFERS].activeCardId;
+const getSortType = (state) => state[NameSpace.OFFERS].sortType;
 
 export {
   getCity,
   getOffers,
   getFiltredOffers,
   getLoadedDataStatue,
-  getActiveCardId
+  getActiveCardId,
+  getSortType
 };

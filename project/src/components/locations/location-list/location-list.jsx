@@ -1,13 +1,21 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import {useDispatch} from 'react-redux';
 
 import {CITIES} from '../../../const';
 
 import LocationItem from '../location-item/location-item';
+import {changeCity, fillOffers, changeSortType} from '../../../store/action';
+import {SortType} from '../../../const';
 
 
-function LocationList(props) {
-  const {onLocationChange} = props;
+function LocationList() {
+  const dispatch = useDispatch();
+
+  const onLocationChange = (activeCity) => {
+    dispatch(changeCity(activeCity));
+    dispatch(fillOffers());
+    dispatch(changeSortType(SortType.POPULAR));
+  };
 
   return (
     <ul className="locations__list tabs__list">
@@ -17,9 +25,5 @@ function LocationList(props) {
     </ul>
   );
 }
-
-LocationList.propTypes = {
-  onLocationChange: PropTypes.func.isRequired,
-};
 
 export default LocationList;

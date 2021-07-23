@@ -1,12 +1,14 @@
 import React, {useState} from 'react';
 import {useDispatch} from 'react-redux';
+import {Link} from 'react-router-dom';
 
+import {changeCity, fillOffers} from '../../store/action';
 import {login} from '../../store/api-actions';
 import {addUserEmail} from '../../store/action';
 import Header from '../header/header';
+import {AppRoute} from '../../const';
 
 function LoginPage () {
-
   const dispatch = useDispatch();
 
   const onSubmit = (authData) => {
@@ -54,7 +56,7 @@ function LoginPage () {
                   type="email"
                   name="email"
                   placeholder="Email"
-                  required=""
+                  required={'required'}
                   onChange={onInputChange}
                   autoFocus
                   data-testid="email"
@@ -66,7 +68,7 @@ function LoginPage () {
                   className="login__input form__input"
                   type="password" name="password"
                   placeholder="Password"
-                  required=""
+                  required={'required'}
                   onChange={onInputChange}
                   data-testid="password"
                 />
@@ -80,9 +82,16 @@ function LoginPage () {
           </section>
           <section className="locations locations--login locations--current">
             <div className="locations__item">
-              <a className="locations__item-link" href="{#}">
+              <Link
+                className="locations__item-link"
+                to={AppRoute.MAIN}
+                onClick={() => {
+                  dispatch(changeCity('Amsterdam'));
+                  dispatch(fillOffers());
+                }}
+              >
                 <span>Amsterdam</span>
-              </a>
+              </Link>
             </div>
           </section>
         </div>

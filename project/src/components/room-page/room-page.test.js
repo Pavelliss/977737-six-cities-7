@@ -4,6 +4,7 @@ import {Router, Route} from 'react-router-dom';
 import {createMemoryHistory} from 'history';
 import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
+import * as Redux from 'react-redux';
 
 import RoomPage from './room-page';
 import {AuthorizationStatus, AppRoute} from '../../const';
@@ -82,17 +83,26 @@ describe('Component: RoomPage', () => {
         authorizationStatus: AuthorizationStatus.NO_AUTH,
         userEmail: '',
       },
+      CHOSEN_OFFER: {
+        chosenOffer: testOffers[0],
+        comments: testComments,
+        nearbyOffers: testOffers,
+        isReviewFormDisabled: false,
+      },
+      OFFERS: {
+        offers: testOffers,
+      },
     });
+
+    const dispatch = jest.fn();
+    const useDispatch = jest.spyOn(Redux, 'useDispatch');
+    useDispatch.mockReturnValue(dispatch);
 
     render(
       <Provider store={store}>
         <Router history={history}>
           <Route exact path={`${AppRoute.ROOM}/:id`}>
-            <RoomPage
-              offers={testOffers}
-              comments={testComments}
-              nearOffers={testOffers}
-            />
+            <RoomPage/>
           </Route>
         </Router>
       </Provider>,
@@ -101,5 +111,6 @@ describe('Component: RoomPage', () => {
     expect(screen.getByText(/To bookmarks/i)).toBeInTheDocument();
     expect(screen.getByText(/Meet the host/i)).toBeInTheDocument();
     expect(screen.getByText(/Map/i)).toBeInTheDocument();
+    expect(useDispatch).toBeCalledTimes(3);
   });
 });
