@@ -5,7 +5,7 @@ import {createMemoryHistory} from 'history';
 import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 
-import {AuthorizationStatus, DEFALT_CITY} from '../../const';
+import {AuthorizationStatus, DEFAULT_CITY} from '../../const';
 import MainPage from './main-page';
 
 jest.mock('../../components/map/map', () => {
@@ -67,7 +67,7 @@ describe('Component: MainPage', () => {
         userEmail: 'test@gmail.com',
       },
       OFFERS: {
-        city: DEFALT_CITY,
+        city: DEFAULT_CITY,
         offers: testOffers,
         filtredOffers: testOffers,
         isDataLoaded: true,
@@ -85,7 +85,7 @@ describe('Component: MainPage', () => {
       </Provider>,
     );
 
-    expect(screen.getByText(`1 places to stay in ${DEFALT_CITY}`)).toBeInTheDocument();
+    expect(screen.getByText(`1 places to stay in ${DEFAULT_CITY}`)).toBeInTheDocument();
     expect(screen.getByText(/Map/i)).toBeInTheDocument();
   });
 });

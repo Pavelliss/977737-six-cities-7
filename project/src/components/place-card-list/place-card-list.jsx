@@ -13,6 +13,10 @@ function PlaceCardList(props) {
     dispatch(changeActiveCardId(id));
   };
 
+  const onCardPointerLeave = () => {
+    dispatch(changeActiveCardId(null));
+  };
+
   return (
     <div className="cities__places-list places__list tabs__content">
       {offers.map((offer) => (
@@ -20,6 +24,7 @@ function PlaceCardList(props) {
           offer={offer}
           key={offer.id}
           onCardPointerEnter={onCardPointerEnter}
+          onCardPointerLeave={onCardPointerLeave}
         />
       ))}
     </div>

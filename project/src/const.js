@@ -29,7 +29,7 @@ const SortType = {
   TOP_RATED_FIRST: 'Top rated first',
 };
 
-const DEFALT_CITY = 'Paris';
+const DEFAULT_CITY = 'Paris';
 
 export {
   APIRoute,
@@ -37,5 +37,5 @@ export {
   AuthorizationStatus,
   SortType,
   CITIES,
-  DEFALT_CITY
+  DEFAULT_CITY
 };

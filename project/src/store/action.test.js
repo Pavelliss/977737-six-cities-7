@@ -1,4 +1,4 @@
-import {DEFALT_CITY} from '../const';
+import {DEFAULT_CITY} from '../const';
 import {
   ActionType,
   changeCity ,
@@ -11,10 +11,10 @@ describe('Actions', () => {
 
     const expectedAction = {
       type: ActionType.CHANGE_CITY,
-      payload: DEFALT_CITY,
+      payload: DEFAULT_CITY,
     };
 
-    expect(changeCity(DEFALT_CITY)).toEqual(expectedAction);
+    expect(changeCity(DEFAULT_CITY)).toEqual(expectedAction);
   });
 
   it('action create for fill offers returns correct action', () => {

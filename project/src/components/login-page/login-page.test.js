@@ -6,7 +6,7 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 import userEvent from '@testing-library/user-event';
 
-import {AppRoute, AuthorizationStatus, DEFALT_CITY} from '../../const';
+import {AppRoute, AuthorizationStatus, DEFAULT_CITY} from '../../const';
 import LoginPage from './login-page';
 
 const mockStore = configureStore({});
@@ -21,7 +21,7 @@ describe('Component: LoginPage', () => {
         userEmail: 'test@gmail.com',
       },
       OFFERS: {
-        city: DEFALT_CITY,
+        city: DEFAULT_CITY,
         offers: [],
         filtredOffers: [],
         isDataLoaded: true,

@@ -57,12 +57,14 @@ describe('Component: FavoritesCard', () => {
   });
   it('should render correctly', () => {
     const onCardPointerEnter = jest.fn();
+    const onCardPointerLeave = jest.fn();
 
     render(
       <Router history={history}>
         <PlaceCard
           offer={testOffer}
           onCardPointerEnter={onCardPointerEnter}
+          onCardPointerLeave={onCardPointerLeave}
         />
       </Router>,
     );
@@ -73,6 +75,7 @@ describe('Component: FavoritesCard', () => {
   it('should redirect to AppRoute.ROOM/id', () => {
     const url = `${AppRoute.ROOM}/${testOffer['id']}`;
     const onCardPointerEnter = jest.fn();
+    const onCardPointerLeave = jest.fn();
 
     const {container} = render(
       <Router history={history}>
@@ -80,6 +83,7 @@ describe('Component: FavoritesCard', () => {
           <PlaceCard
             offer={testOffer}
             onCardPointerEnter={onCardPointerEnter}
+            onCardPointerLeave={onCardPointerLeave}
           />
         </Route>
         <Route exact path={url}>
