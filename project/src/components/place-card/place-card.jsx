@@ -8,7 +8,11 @@ import {AppRoute} from '../../const';
 import FavoritesButton from '../favorites-button/favorites-button';
 
 function PlaceCard (props) {
-  const {offer, onCardPointerEnter} = props;
+  const {
+    offer,
+    onCardPointerEnter,
+    onCardPointerLeave,
+  } = props;
 
   const {
     id,
@@ -25,7 +29,10 @@ function PlaceCard (props) {
   const offerRaiting = `${convertRaitingToPercents(rating)}%`;
 
   return (
-    <article className="cities__place-card place-card" onPointerEnter={() => onCardPointerEnter(id)}>
+    <article className="cities__place-card place-card"
+      onPointerEnter={() => onCardPointerEnter(id)}
+      onPointerLeave={() => onCardPointerLeave()}
+    >
       {isPremium ?
         <div className="place-card__mark">
           <span>Premium</span>
@@ -70,6 +77,7 @@ function PlaceCard (props) {
 PlaceCard.propTypes = {
   offer: offerProp,
   onCardPointerEnter: PropTypes.func.isRequired,
+  onCardPointerLeave: PropTypes.func.isRequired,
 };
 
 export default PlaceCard;

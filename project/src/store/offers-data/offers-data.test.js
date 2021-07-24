@@ -1,4 +1,4 @@
-import {DEFALT_CITY, SortType} from '../../const';
+import {DEFAULT_CITY, SortType} from '../../const';
 import {offersData} from './offers-data';
 import {ActionType} from '../action';
 
@@ -40,7 +40,7 @@ const offers = [
 ];
 
 const initialState = {
-  city: DEFALT_CITY,
+  city: DEFAULT_CITY,
   offers: [],
   filtredOffers: [],
   isDataLoaded: false,

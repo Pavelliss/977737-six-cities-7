@@ -7,7 +7,7 @@ import configureStore from 'redux-mock-store';
 import {Provider} from 'react-redux';
 
 import LocationItem from './location-item';
-import {DEFALT_CITY} from '../../../const';
+import {DEFAULT_CITY} from '../../../const';
 
 const testCity = 'Prague';
 const mockStore = configureStore({});
@@ -18,7 +18,7 @@ describe('Component: LocationItem', () => {
     const onLocationChange = jest.fn();
     const store = mockStore({
       OFFERS: {
-        city: DEFALT_CITY,
+        city: DEFAULT_CITY,
       },
     });
 

@@ -9,12 +9,12 @@ import {
   updateOffer
 } from '../action';
 import {getFiltredOffers} from '../../helper/helper';
-import {DEFALT_CITY, SortType} from '../../const';
+import {DEFAULT_CITY, SortType} from '../../const';
 import {sort} from '../../helper/sort';
 import {updateItem} from '../../helper/helper';
 
 const initialState = {
-  city: DEFALT_CITY,
+  city: DEFAULT_CITY,
   offers: [],
   filtredOffers: [],
   isDataLoaded: false,

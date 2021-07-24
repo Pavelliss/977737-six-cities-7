@@ -6,7 +6,7 @@ import {Provider} from 'react-redux';
 import configureStore from 'redux-mock-store';
 import {
   AuthorizationStatus,
-  DEFALT_CITY,
+  DEFAULT_CITY,
   AppRoute} from '../../const';
 import App from './app';
 
@@ -62,7 +62,7 @@ describe('Application Routing', () => {
         userEmail: 'test@gmail.com',
       },
       OFFERS: {
-        city: DEFALT_CITY,
+        city: DEFAULT_CITY,
         offers: testOffers,
         filtredOffers: testOffers,
         isDataLoaded: true,
