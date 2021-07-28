@@ -7,6 +7,9 @@ import {convertRaitingToPercents} from '../../helper/helper';
 import {AppRoute} from '../../const';
 import FavoritesButton from '../favorites-button/favorites-button';
 
+const BUTTON_WIDTH = 18;
+const BUTTON_HEIGHT = 19;
+
 function PlaceCard (props) {
   const {
     offer,
@@ -54,8 +57,8 @@ function PlaceCard (props) {
             isFavorite={isFavorite}
             id={id}
             size={{
-              width: 18,
-              height: 19,
+              width: BUTTON_WIDTH,
+              height: BUTTON_HEIGHT,
             }}
           />
         </div>

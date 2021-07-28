@@ -6,7 +6,7 @@ import {getReviewFormState} from '../../store/chosen-offer/selector';
 import {toggleStateReviewForm
 } from '../../store/action';
 
-const COUT_STARS = 5;
+const COUNT_STARS = 5;
 const MIN_LENGTH_REVIEW = 50;
 const MAX_LENGTH_REVIEW = 300;
 
@@ -62,7 +62,7 @@ function ReviewsForm (props) {
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {
-          new Array(COUT_STARS)
+          new Array(COUNT_STARS)
             .fill()
             .map((_star, index) => {
               const value = Math.abs((index + 1)) ;

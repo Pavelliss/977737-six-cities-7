@@ -29,6 +29,9 @@ import {
   getNearbyOffers
 } from '../../store/chosen-offer/selector';
 
+const BUTTON_WIDTH = 31;
+const BUTTON_HEIGHT = 33;
+
 function RoomPage () {
   const {id} = useParams();
 
@@ -115,8 +118,8 @@ function RoomPage () {
                   isFavorite={isFavorite}
                   id={+id}
                   size={{
-                    width: 31,
-                    height: 33,
+                    width: BUTTON_WIDTH,
+                    height: BUTTON_HEIGHT,
                   }}
                 />
               </div>

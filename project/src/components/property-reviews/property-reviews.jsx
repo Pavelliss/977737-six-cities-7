@@ -7,7 +7,7 @@ import {sortOfferTime} from '../../helper/helper';
 import ReviewsForm from '../reviews-form/reviews-form';
 import ReviewsList from '../reviews-list/reviews-list';
 
-const MAX_COMMENTT_COUNT = 10;
+const MAX_COMMENT_COUNT = 10;
 
 function PropertyReviews(props) {
   const {
@@ -19,7 +19,7 @@ function PropertyReviews(props) {
   let {comments} = props;
 
   comments = comments
-    .slice(0, MAX_COMMENTT_COUNT)
+    .slice(0, MAX_COMMENT_COUNT)
     .sort(sortOfferTime);
 
   const commentCount = comments.length;
